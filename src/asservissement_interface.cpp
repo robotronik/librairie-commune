@@ -2,38 +2,40 @@
 
 
 
-void asservissement_interface::turn_on_LED_1() {
+void asservissement_interface::turn_on_LED_1(){
     uint8_t command = 10;
     uint8_t* data = nullptr;
     int length = 0;
     I2cSendData(command, data, length);
 }
 
-void asservissement_interface::turn_off_LED_1() {
+void asservissement_interface::turn_off_LED_1(){
     uint8_t command = 11;
     uint8_t* data = nullptr;
     int length = 0;
     I2cSendData(command, data, length);
 }
 
-void asservissement_interface::turn_on_LED_2() {
+void asservissement_interface::turn_on_LED_2(){
     uint8_t command = 12;
     uint8_t* data = nullptr;
     int length = 0;
     I2cSendData(command, data, length);
 }
 
-void asservissement_interface::turn_off_LED_2() {
+void asservissement_interface::turn_off_LED_2(){
     uint8_t command = 13;
     uint8_t* data = nullptr;
     int length = 0;
     I2cSendData(command, data, length);
 }
 
-void asservissement_interface::get_coordinates(int16_t &x, int16_t &y, int16_t &theta) {
+void asservissement_interface::get_coordinates(int16_t &x, int16_t &y, int16_t &theta){
     uint8_t command = 20;
     uint8_t data[6];
     int length = 6;
+    data[0] = 1;
+    data[1] = 1;
     I2cReceiveData(command, data, length);
 
     DataUnpacker unpacker(data, length);
@@ -42,7 +44,7 @@ void asservissement_interface::get_coordinates(int16_t &x, int16_t &y, int16_t &
     theta = unpacker.popUint16();
 }
 
-void asservissement_interface::set_coordinates(int16_t x, int16_t y, int16_t theta) {
+void asservissement_interface::set_coordinates(int16_t x, int16_t y, int16_t theta){
     uint8_t command = 21;
     DataPacker packer;
     packer.addUint16(x);
@@ -51,14 +53,18 @@ void asservissement_interface::set_coordinates(int16_t x, int16_t y, int16_t the
     I2cSendData(command, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::stop() {
+void asservissement_interface::stop(){
     uint8_t command = 30;
     uint8_t* data = nullptr;
     int length = 0;
     I2cSendData(command, data, length);
 }
 
-void asservissement_interface::set_consigne_lineaire(int16_t x, int16_t y) {
+void asservissement_interface::brake(bool enable){
+
+}
+
+void asservissement_interface::set_consigne_lineaire(int16_t x, int16_t y){
     uint8_t command = 31;
     DataPacker packer;
     packer.addUint16(x);
@@ -67,7 +73,7 @@ void asservissement_interface::set_consigne_lineaire(int16_t x, int16_t y) {
     I2cSendData(command, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_consigne_angulaire(int16_t angle, int16_t rotation) {
+void asservissement_interface::set_consigne_angulaire(int16_t angle, int16_t rotation){
     uint8_t command = 32;
     DataPacker packer;
     packer.addUint16(angle);
@@ -76,7 +82,7 @@ void asservissement_interface::set_consigne_angulaire(int16_t angle, int16_t rot
     I2cSendData(command, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_consigne_lookAt_forward(int16_t x, int16_t y, int16_t rotation) {
+void asservissement_interface::set_consigne_lookAt_forward(int16_t x, int16_t y, int16_t rotation){
     uint8_t command = 33;
     DataPacker packer;
     packer.addUint16(x);
@@ -86,7 +92,7 @@ void asservissement_interface::set_consigne_lookAt_forward(int16_t x, int16_t y,
     I2cSendData(command, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_consigne_lookAt_backward(int16_t x, int16_t y, int16_t rotation) {
+void asservissement_interface::set_consigne_lookAt_backward(int16_t x, int16_t y, int16_t rotation){
     uint8_t command = 34;
     DataPacker packer;
     packer.addUint16(x);
@@ -96,7 +102,7 @@ void asservissement_interface::set_consigne_lookAt_backward(int16_t x, int16_t y
     I2cSendData(command, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::robot_moving_is_finish(int16_t &resbool) {
+void asservissement_interface::robot_moving_is_finish(int16_t &resbool){
     uint8_t command = 40;
     uint8_t data[2];
     int length = 2;
@@ -106,7 +112,7 @@ void asservissement_interface::robot_moving_is_finish(int16_t &resbool) {
     resbool = unpacker.popUint16();
 }
 
-void asservissement_interface::robot_running_is_finish(int16_t &resbool) {
+void asservissement_interface::robot_running_is_finish(int16_t &resbool){
     uint8_t command = 41;
     uint8_t data[2];
     int length = 2;
@@ -116,7 +122,7 @@ void asservissement_interface::robot_running_is_finish(int16_t &resbool) {
     resbool = unpacker.popUint16();
 }
 
-void asservissement_interface::robot_turning_is_finish(int16_t &resbool) {
+void asservissement_interface::robot_turning_is_finish(int16_t &resbool){
     uint8_t command = 42;
     uint8_t data[2];
     int length = 2;
@@ -126,7 +132,7 @@ void asservissement_interface::robot_turning_is_finish(int16_t &resbool) {
     resbool = unpacker.popUint16();
 }
 
-void asservissement_interface::get_linear_error(int16_t &error) {
+void asservissement_interface::get_linear_error(int16_t &error){
     uint8_t command = 43;
     uint8_t data[2];
     int length = 2;
@@ -136,7 +142,7 @@ void asservissement_interface::get_linear_error(int16_t &error) {
     error = unpacker.popUint16();
 }
 
-void asservissement_interface::get_angular_error(int16_t &error) {
+void asservissement_interface::get_angular_error(int16_t &error){
     uint8_t command = 44;
     uint8_t data[2];
     int length = 2;
@@ -146,7 +152,7 @@ void asservissement_interface::get_angular_error(int16_t &error) {
     error = unpacker.popUint16();
 }
 
-void asservissement_interface::get_braking_distance(int16_t &distance) {
+void asservissement_interface::get_braking_distance(int16_t &distance){
     uint8_t command = 45;
     uint8_t data[2];
     int length = 2;
@@ -156,21 +162,39 @@ void asservissement_interface::get_braking_distance(int16_t &distance) {
     distance = unpacker.popUint16();
 }
 
-void asservissement_interface::disable_motor() {
+int16_t asservissement_interface::get_linear_error(){
+    int16_t distance;
+    get_linear_error(distance);
+    return distance;
+}
+
+int16_t asservissement_interface::get_angular_error(){
+    int16_t distance;
+    get_angular_error(distance);
+    return distance;
+}
+
+int16_t asservissement_interface::get_braking_distance(){
+    int16_t distance;
+    get_braking_distance(distance);
+    return distance;
+}
+
+void asservissement_interface::disable_motor(){
     uint8_t command = 50;
     uint8_t* data = nullptr;
     int length = 0;
     I2cSendData(command, data, length);
 }
 
-void asservissement_interface::enable_motor() {
+void asservissement_interface::enable_motor(){
     uint8_t command = 51;
     uint8_t* data = nullptr;
     int length = 0;
     I2cSendData(command, data, length);
 }
 
-void asservissement_interface::set_max_speed_forward(int16_t speed) {
+void asservissement_interface::set_max_speed_forward(int16_t speed){
     uint8_t command = 60;
     DataPacker packer;
     packer.addUint16(speed);
@@ -178,7 +202,7 @@ void asservissement_interface::set_max_speed_forward(int16_t speed) {
     I2cSendData(command, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_max_speed_backward(int16_t speed) {
+void asservissement_interface::set_max_speed_backward(int16_t speed){
     uint8_t command = 61;
     DataPacker packer;
     packer.addUint16(speed);
@@ -186,7 +210,7 @@ void asservissement_interface::set_max_speed_backward(int16_t speed) {
     I2cSendData(command, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_max_speed_trigo(int16_t speed) {
+void asservissement_interface::set_max_speed_trigo(int16_t speed){
     uint8_t command = 62;
     DataPacker packer;
     packer.addUint16(speed);
@@ -194,7 +218,7 @@ void asservissement_interface::set_max_speed_trigo(int16_t speed) {
     I2cSendData(command, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_max_speed_horloge(int16_t speed) {
+void asservissement_interface::set_max_speed_horloge(int16_t speed){
     uint8_t command = 63;
     DataPacker packer;
     packer.addUint16(speed);

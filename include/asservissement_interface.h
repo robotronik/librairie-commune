@@ -6,8 +6,18 @@
 
 class asservissement_interface
 {
-private:
-    /* data */
+public:
+    typedef enum {
+        ROTATION_DIRECT = 0,
+        ROTATION_TRIGO = 1,
+        ROTATION_HORRAIRE = 2
+    }rotation;
+
+    typedef enum {
+        MOVE_FORWARD = 0,
+        MOVE_BACKWARD = 1,
+    }direction;
+
 public:
 
     void turn_on_LED_1();           
@@ -20,7 +30,8 @@ public:
     void set_coordinates(int16_t x, int16_t y, int16_t theta);     
 
 
-    void stop();                    
+    void stop();
+    void brake(bool enable);
     void set_consigne_lineaire(int16_t x, int16_t y);                  
     void set_consigne_angulaire(int16_t angle, int16_t rotation);      
     void set_consigne_lookAt_forward(int16_t x, int16_t y, int16_t rotation); 
@@ -34,7 +45,10 @@ public:
 
     void get_linear_error(int16_t &error);      
     void get_angular_error(int16_t &error);     
-    void get_braking_distance(int16_t &distance); 
+    void get_braking_distance(int16_t &distance);
+    int16_t get_linear_error();
+    int16_t get_angular_error();
+    int16_t get_braking_distance();
 
 
     void disable_motor();          
