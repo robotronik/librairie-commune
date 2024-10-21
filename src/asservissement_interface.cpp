@@ -34,8 +34,6 @@ void asservissement_interface::get_coordinates(int16_t &x, int16_t &y, int16_t &
     uint8_t command = 20;
     uint8_t data[6];
     int length = 6;
-    data[0] = 1;
-    data[1] = 1;
     I2cReceiveData(command, data, length);
 
     DataUnpacker unpacker(data, length);
