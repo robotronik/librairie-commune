@@ -3,6 +3,45 @@
 #include "DataPacker.h"
 #include "DataUnpacker.h"
 
+enum CommandNum {
+    // LED Commands
+    CMD_TURN_ON_LED_1 = 10,
+    CMD_TURN_OFF_LED_1 = 11,
+    CMD_TURN_ON_LED_2 = 12,
+    CMD_TURN_OFF_LED_2 = 13,
+
+    // Coordinate Commands
+    CMD_GET_COORDINATES = 20,
+    CMD_SET_COORDINATES = 21,
+
+    // Motion Commands
+    CMD_STOP = 30,
+    CMD_SET_CONSIGNE_LINEAIRE = 31,
+    CMD_SET_CONSIGNE_ANGULAIRE = 32,
+    CMD_SET_CONSIGNE_LOOKAT_FORWARD = 33,
+    CMD_SET_CONSIGNE_LOOKAT_BACKWARD = 34,
+
+    // Robot Status Commands
+    CMD_ROBOT_MOVING_IS_FINISH = 40,
+    CMD_ROBOT_RUNNING_IS_FINISH = 41,
+    CMD_ROBOT_TURNING_IS_FINISH = 42,
+    CMD_GET_LINEAR_ERROR = 43,
+    CMD_GET_ANGULAR_ERROR = 44,
+    CMD_GET_BRAKING_DISTANCE = 45,
+
+    // Motor Commands
+    CMD_DISABLE_MOTOR = 50,
+    CMD_ENABLE_MOTOR = 51,
+	CMD_MOTOR_52 = 52, //TODO : Docs doesnt talk about these !!
+	CMD_MOTOR_53 = 53,
+	CMD_MOTOR_TORQUE_54 = 54,
+
+    // Speed Commands
+    CMD_SET_MAX_SPEED_FORWARD = 60,
+    CMD_SET_MAX_SPEED_BACKWARD = 61,
+    CMD_SET_MAX_SPEED_TRIGO = 62,
+    CMD_SET_MAX_SPEED_HORLOGE = 63
+};
 
 class asservissement_interface
 {
