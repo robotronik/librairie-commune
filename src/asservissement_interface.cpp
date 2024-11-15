@@ -91,7 +91,7 @@ void asservissement_interface::set_consigne_lookAt_backward(int16_t x, int16_t y
 void asservissement_interface::robot_moving_is_finish(int16_t &resbool){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(CMD_ROBOT_MOVING_IS_FINISH, data, length);
+    I2cReceiveData(CMD_ROBOT_MOVING_IS_DONE, data, length);
 
     DataUnpacker unpacker(data, length);
     resbool = unpacker.popUint16();
@@ -100,7 +100,7 @@ void asservissement_interface::robot_moving_is_finish(int16_t &resbool){
 void asservissement_interface::robot_running_is_finish(int16_t &resbool){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(CMD_ROBOT_RUNNING_IS_FINISH, data, length);
+    I2cReceiveData(CMD_ROBOT_RUNNING_IS_DONE, data, length);
 
     DataUnpacker unpacker(data, length);
     resbool = unpacker.popUint16();
@@ -109,7 +109,7 @@ void asservissement_interface::robot_running_is_finish(int16_t &resbool){
 void asservissement_interface::robot_turning_is_finish(int16_t &resbool){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(CMD_ROBOT_TURNING_IS_FINISH, data, length);
+    I2cReceiveData(CMD_ROBOT_TURNING_IS_DONE, data, length);
 
     DataUnpacker unpacker(data, length);
     resbool = unpacker.popUint16();
