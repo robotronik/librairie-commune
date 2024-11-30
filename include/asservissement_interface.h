@@ -3,45 +3,6 @@
 #include "DataPacker.h"
 #include "DataUnpacker.h"
 
-enum CommandNum {
-    // LED Commands
-    CMD_TURN_ON_LED_1 = 10,
-    CMD_TURN_OFF_LED_1 = 11,
-    CMD_TURN_ON_LED_2 = 12,
-    CMD_TURN_OFF_LED_2 = 13,
-
-    // Coordinate Commands
-    CMD_GET_COORDINATES = 20,
-    CMD_SET_COORDINATES = 21,
-
-    // Motion Commands
-    CMD_STOP = 30,
-    CMD_SET_CONSIGNE_LINEAIRE = 31,
-    CMD_SET_CONSIGNE_ANGULAIRE = 32,
-    CMD_SET_CONSIGNE_LOOKAT_FORWARD = 33,
-    CMD_SET_CONSIGNE_LOOKAT_BACKWARD = 34,
-
-    // Robot Status Commands
-    CMD_ROBOT_MOVING_IS_DONE = 40,
-    CMD_ROBOT_RUNNING_IS_DONE = 41,
-    CMD_ROBOT_TURNING_IS_DONE = 42,
-    CMD_GET_LINEAR_ERROR = 43,
-    CMD_GET_ANGULAR_ERROR = 44,
-    CMD_GET_BRAKING_DISTANCE = 45,
-
-    // Motor Commands
-    CMD_DISABLE_MOTOR = 50,
-    CMD_ENABLE_MOTOR = 51,
-	CMD_MOTOR_52 = 52, //TODO : Docs doesnt talk about these !!
-	CMD_MOTOR_53 = 53,
-	CMD_MOTOR_TORQUE_54 = 54,
-
-    // Speed Commands
-    CMD_SET_MAX_SPEED_FORWARD = 60,
-    CMD_SET_MAX_SPEED_BACKWARD = 61,
-    CMD_SET_MAX_SPEED_TRIGO = 62,
-    CMD_SET_MAX_SPEED_HORLOGE = 63
-};
 
 class asservissement_interface
 {
@@ -59,47 +20,56 @@ public:
 
 public:
 
+//***********************************************
+// Start auto generation CMD_HEADER
+// Last generation 2024-12-01 12:52:23: python3 autoGen.py
+// DO NOT EDIT
+public:
     void turn_on_LED_1();
     void turn_off_LED_1();
     void turn_on_LED_2();
     void turn_off_LED_2();
-
-
     void get_coordinates(int16_t &x, int16_t &y, int16_t &theta);
     void set_coordinates(int16_t x, int16_t y, int16_t theta);
-
-
     void stop();
-    void brake(bool enable);
     void set_consigne_lineaire(int16_t x, int16_t y);
     void set_consigne_angulaire(int16_t angle, int16_t rotation);
     void set_consigne_lookAt_forward(int16_t x, int16_t y, int16_t rotation);
     void set_consigne_lookAt_backward(int16_t x, int16_t y, int16_t rotation);
-
-
     void robot_moving_is_finish(int16_t &resbool);
     void robot_running_is_finish(int16_t &resbool);
     void robot_turning_is_finish(int16_t &resbool);
-
-
     void get_linear_error(int16_t &error);
     void get_angular_error(int16_t &error);
     void get_braking_distance(int16_t &distance);
-    int16_t get_linear_error();
-    int16_t get_angular_error();
-    int16_t get_braking_distance();
-
-
+    void get_robot_running(bool &robot_runnning);
+    void get_directio_side(direction &direction_side);
+    void get_rotation_side(rotation &rotation_side);
+    void get_current_consigne(int16_t &x, int16_t &y, int16_t &theta);
     void disable_motor();
     void enable_motor();
-
-
+    void brake_on();
+    void brake_off();
+    void set_max_torque(int16_t max_torque);
     void set_max_speed_forward(int16_t speed);
     void set_max_speed_backward(int16_t speed);
     void set_max_speed_trigo(int16_t speed);
     void set_max_speed_horloge(int16_t speed);
+    void go_to_point(int16_t x,int16_t y,rotation rotation = ROTATION_DIRECT, direction direction = MOVE_FORWARD);
+    void go_to_point(int16_t x,int16_t y,int16_t theta, rotation rotationFirst, direction direction, rotation rotationSecond);
 
+    //Overloding function
+    int16_t get_linear_error(void);
+    int16_t get_angular_error();
+    int16_t get_braking_distance();
 
+private:
+
+    //Overloding function
+// End auto generation CMD_HEADER
+//***********************************************
+
+private:
     virtual void I2cSendData (uint8_t command, uint8_t* data, int length) = 0;
     virtual void I2cReceiveData (uint8_t command, uint8_t* data, int length) = 0;
 
