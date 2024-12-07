@@ -2,27 +2,16 @@
 
 #include "DataPacker.h"
 #include "DataUnpacker.h"
+#include "type.h"
 
 
 class asservissement_interface
 {
 public:
-    typedef enum {
-        ROTATION_DIRECT = 0,
-        ROTATION_TRIGO = 1,
-        ROTATION_HORRAIRE = 2
-    }rotation;
-
-    typedef enum {
-        MOVE_FORWARD = 0,
-        MOVE_BACKWARD = 1,
-    }direction;
-
-public:
 
 //***********************************************
 // Start auto generation CMD_HEADER
-// Last generation 2024-12-01 12:52:23: python3 autoGen.py
+// Last generation 2024-12-07 19:59:03: python3 autoGen.py
 // DO NOT EDIT
 public:
     void turn_on_LED_1();
@@ -43,8 +32,8 @@ public:
     void get_angular_error(int16_t &error);
     void get_braking_distance(int16_t &distance);
     void get_robot_running(bool &robot_runnning);
-    void get_directio_side(direction &direction_side);
-    void get_rotation_side(rotation &rotation_side);
+    void get_directio_side(Direction &direction_side);
+    void get_rotation_side(Rotation &rotation_side);
     void get_current_consigne(int16_t &x, int16_t &y, int16_t &theta);
     void disable_motor();
     void enable_motor();
@@ -55,8 +44,8 @@ public:
     void set_max_speed_backward(int16_t speed);
     void set_max_speed_trigo(int16_t speed);
     void set_max_speed_horloge(int16_t speed);
-    void go_to_point(int16_t x,int16_t y,rotation rotation = ROTATION_DIRECT, direction direction = MOVE_FORWARD);
-    void go_to_point(int16_t x,int16_t y,int16_t theta, rotation rotationFirst, direction direction, rotation rotationSecond);
+    void go_to_point(int16_t x,int16_t y,Rotation rotation = ROTATION_DIRECT, Direction direction = MOVE_FORWARD);
+    void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond);
 
     //Overloding function
     int16_t get_linear_error(void);

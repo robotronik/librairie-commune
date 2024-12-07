@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2024-12-01 12:52:23: python3 autoGen.py
+// Last generation 2024-12-07 19:59:03: python3 autoGen.py
 // DO NOT EDIT
 void asservissement_interface::turn_on_LED_1(){
     uint8_t* data = nullptr;
@@ -138,20 +138,20 @@ void asservissement_interface::get_robot_running(bool &robot_runnning){
     robot_runnning = (bool)unpacker.popUint16();
 }
 
-void asservissement_interface::get_directio_side(direction &direction_side){
+void asservissement_interface::get_directio_side(Direction &direction_side){
     uint8_t data[2];
     int length = 2;
     I2cReceiveData(47, data, length);
     DataUnpacker unpacker(data, length);
-    direction_side = (direction)unpacker.popUint16();
+    direction_side = (Direction)unpacker.popUint16();
 }
 
-void asservissement_interface::get_rotation_side(rotation &rotation_side){
+void asservissement_interface::get_rotation_side(Rotation &rotation_side){
     uint8_t data[2];
     int length = 2;
     I2cReceiveData(48, data, length);
     DataUnpacker unpacker(data, length);
-    rotation_side = (rotation)unpacker.popUint16();
+    rotation_side = (Rotation)unpacker.popUint16();
 }
 
 void asservissement_interface::get_current_consigne(int16_t &x, int16_t &y, int16_t &theta){
@@ -218,7 +218,7 @@ void asservissement_interface::set_max_speed_horloge(int16_t speed){
     I2cSendData(63, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::go_to_point(int16_t x, int16_t y, rotation rotation, direction direction){
+void asservissement_interface::go_to_point(int16_t x, int16_t y, Rotation rotation, Direction direction){
     DataPacker packer;
     packer.addUint16((int16_t)x);
     packer.addUint16((int16_t)y);
@@ -227,7 +227,7 @@ void asservissement_interface::go_to_point(int16_t x, int16_t y, rotation rotati
     I2cSendData(70, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::go_to_point(int16_t x, int16_t y, int16_t theta, rotation rotationFirst, direction direction, rotation rotationSecond){
+void asservissement_interface::go_to_point(int16_t x, int16_t y, int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond){
     DataPacker packer;
     packer.addUint16((int16_t)x);
     packer.addUint16((int16_t)y);
