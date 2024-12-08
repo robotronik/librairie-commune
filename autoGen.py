@@ -148,7 +148,8 @@ def create_robot_interface_content(rows):
 def create_function_interface_content(rows):
     function_content = []
     function_content.append("void Robot_interface::I2CDataSwitch(uint8_t* data, int size){\n")
-    function_content.append("    DataPacker packer;\n")
+    function_content.append("    uint8_t data[64];\n")
+    function_content.append("    DataPacker packer(data, 64);\n")
     function_content.append("    DataUnpacker unPacker(&data[1], size + 1);\n")
     function_content.append("    switch (data[0]){\n")
 
@@ -173,9 +174,9 @@ def create_function_interface_content(rows):
             function_content.append(f"            {command_name}({function_param});\n")
             for arg in params:
                 if arg['is_reference']:
-                    function_content.append(f"            packer.addUint16({arg['name']});\n")
+                    function_content.append(f"            packer.addUint16((int16_t){arg['name']});\n")
             if any(arg['is_reference'] for arg in params):
-                function_content.append( "            I2CSetBuffer(packer.getData(),packer.getSize());\n")
+                function_content.append( "            setReponseBuffer(packer.getData(),packer.getSize());\n")
             function_content.append( "            break;\n")
             function_content.append( "        }\n")
 

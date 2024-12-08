@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2024-12-07 19:59:03: python3 autoGen.py
+// Last generation 2024-12-08 16:19:33: python3 autoGen.py
 // DO NOT EDIT
 void asservissement_interface::turn_on_LED_1(){
     uint8_t* data = nullptr;

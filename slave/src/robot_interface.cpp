@@ -2,10 +2,11 @@
 
 //***********************************************
 // Start auto generation CMD_ROBOT_FUNCTION_INTERFACE
-// Last generation 2024-12-07 19:59:03: python3 autoGen.py
+// Last generation 2024-12-08 16:19:33: python3 autoGen.py
 // DO NOT EDIT
 void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
-    DataPacker packer;
+    uint8_t dataPack[64];
+    DataPacker packer(dataPack, 64);
     DataUnpacker unPacker(&data[1], size + 1);
     switch (data[0]){
         case 10:{
@@ -29,10 +30,10 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             int16_t y;
             int16_t theta;
             get_coordinates(x, y, theta);
-            packer.addUint16(x);
-            packer.addUint16(y);
-            packer.addUint16(theta);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)x);
+            packer.addUint16((int16_t)y);
+            packer.addUint16((int16_t)theta);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 21:{
@@ -88,64 +89,64 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
         case 40:{
             int16_t resbool;
             robot_moving_is_finish(resbool);
-            packer.addUint16(resbool);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)resbool);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 41:{
             int16_t resbool;
             robot_running_is_finish(resbool);
-            packer.addUint16(resbool);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)resbool);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 42:{
             int16_t resbool;
             robot_turning_is_finish(resbool);
-            packer.addUint16(resbool);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)resbool);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 43:{
             int16_t error;
             get_linear_error(error);
-            packer.addUint16(error);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)error);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 44:{
             int16_t error;
             get_angular_error(error);
-            packer.addUint16(error);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)error);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 45:{
             int16_t distance;
             get_braking_distance(distance);
-            packer.addUint16(distance);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)distance);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 46:{
             bool robot_runnning;
             get_robot_running(robot_runnning);
-            packer.addUint16(robot_runnning);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)robot_runnning);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 47:{
             Direction direction_side;
             get_directio_side(direction_side);
-            packer.addUint16(direction_side);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)direction_side);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 48:{
             Rotation rotation_side;
             get_rotation_side(rotation_side);
-            packer.addUint16(rotation_side);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)rotation_side);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 49:{
@@ -153,10 +154,10 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             int16_t y;
             int16_t theta;
             get_current_consigne(x, y, theta);
-            packer.addUint16(x);
-            packer.addUint16(y);
-            packer.addUint16(theta);
-            I2CSetBuffer(packer.getData(),packer.getSize());
+            packer.addUint16((int16_t)x);
+            packer.addUint16((int16_t)y);
+            packer.addUint16((int16_t)theta);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 50:{

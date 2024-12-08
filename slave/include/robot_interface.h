@@ -7,12 +7,12 @@
 class Robot_interface
 {
 
-private:
+public:
     void I2CDataSwitch(uint8_t* data, int size);
 
 //***********************************************
 // Start auto generation CMD_ROBOT_INTERFACE
-// Last generation 2024-12-07 19:59:03: python3 autoGen.py
+// Last generation 2024-12-08 16:19:33: python3 autoGen.py
 // DO NOT EDIT
 private:
     virtual void turn_on_LED_1() = 0;
@@ -45,13 +45,13 @@ private:
     virtual void set_max_speed_backward(int16_t speed) = 0;
     virtual void set_max_speed_trigo(int16_t speed) = 0;
     virtual void set_max_speed_horloge(int16_t speed) = 0;
-    virtual void go_to_point(int16_t x,int16_t y,Rotation rotation = ROTATION_DIRECT, Direction direction = MOVE_FORWARD) = 0;
+    virtual void go_to_point(int16_t x,int16_t y,Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD) = 0;
     virtual void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond) = 0;
 // End auto generation CMD_ROBOT_INTERFACE
 //***********************************************
 
 private:
-    virtual void I2CSetBuffer(uint8_t* data, int size) = 0;
+    virtual void setReponseBuffer(uint8_t* data, int size) = 0;
 
 };
 

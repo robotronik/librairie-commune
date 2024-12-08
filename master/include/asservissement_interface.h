@@ -11,7 +11,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_HEADER
-// Last generation 2024-12-07 19:59:03: python3 autoGen.py
+// Last generation 2024-12-08 16:19:33: python3 autoGen.py
 // DO NOT EDIT
 public:
     void turn_on_LED_1();
@@ -44,7 +44,7 @@ public:
     void set_max_speed_backward(int16_t speed);
     void set_max_speed_trigo(int16_t speed);
     void set_max_speed_horloge(int16_t speed);
-    void go_to_point(int16_t x,int16_t y,Rotation rotation = ROTATION_DIRECT, Direction direction = MOVE_FORWARD);
+    void go_to_point(int16_t x,int16_t y,Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD);
     void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond);
 
     //Overloding function

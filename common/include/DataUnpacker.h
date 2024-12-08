@@ -10,12 +10,12 @@
 #ifdef PLATFORMIO
     class DataUnpacker {
     private:
-        const char* data;
+        const uint8_t* data;
         int lenght;
         int currentIndex;
 
     public:
-        DataUnpacker(const char* array, int lengthArray) : data(array), lenght(lengthArray), currentIndex(0) {}
+        DataUnpacker(const uint8_t* array, int lengthArray) : data(array), lenght(lengthArray), currentIndex(0) {}
 
         uint8_t popUint8() {
             return data[currentIndex++];
