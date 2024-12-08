@@ -273,7 +273,6 @@ def update_file(header_file, content, marker):
 
     start_idx, end_idx = None, None
 
-
     for idx, line in enumerate(lines):
         if any(start_marker in line for start_marker in start_markers):
             start_idx = idx
@@ -306,6 +305,10 @@ def update_file(header_file, content, marker):
         ]
 
     generated_content.extend(content)
+
+    if "".join(generated_content[+1:]) == "".join(lines[start_idx + 2:end_idx]):
+        print("Le contenu généré est identique à l'existant. Aucun changement n'a été effectué.")
+        return
 
     updated_lines = (
         lines[:start_idx + 1] +
