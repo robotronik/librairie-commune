@@ -7,10 +7,11 @@ from pathlib import Path
 
 script_dir = Path(__file__).parent
 csv_file = script_dir / 'commands.csv'
-header_file = script_dir / 'include/asservissement_interface.h'
-fonction_file = script_dir / 'src/asservissement_interface.cpp'
-robot_interface_file = script_dir / 'include/robot_interface.h'
-function_interface_file = script_dir / 'src/robot_interface.cpp'
+header_file = script_dir / 'master/include/asservissement_interface.h'
+fonction_file = script_dir / 'master/src/asservissement_interface.cpp'
+robot_interface_file = script_dir / 'slave/include/robot_interface.h'
+function_interface_file = script_dir / 'slave/src/robot_interface.cpp'
+doc_file = script_dir / 'Readme.md'
 
 def parse_params(param):
     param = param.strip().strip('"')
@@ -148,8 +149,8 @@ def create_robot_interface_content(rows):
 def create_function_interface_content(rows):
     function_content = []
     function_content.append("void Robot_interface::I2CDataSwitch(uint8_t* data, int size){\n")
-    function_content.append("    uint8_t data[64];\n")
-    function_content.append("    DataPacker packer(data, 64);\n")
+    function_content.append("    uint8_t dataPack[64];\n")
+    function_content.append("    DataPacker packer(dataPack, 64);\n")
     function_content.append("    DataUnpacker unPacker(&data[1], size + 1);\n")
     function_content.append("    switch (data[0]){\n")
 
@@ -206,18 +207,77 @@ def create_class_id_content(rows):
     class_id.append("\n};\n")
     return class_id
 
+def create_doc_content(rows):
+    docContent = []
+
+    lastCategory = ""
+    number = 1
+    docContent.append(f"## Table of Contents\n")
+    for row in rows:
+        category = row['category'].strip()
+        if lastCategory != category:
+            docContent.append(f"{number}. [{category}](#{category})\n")
+            number = number + 1
+            lastCategory = category
+
+    lastCategory = ""
+    number = 1
+    for row in rows:
+        returnParameter = row['return'].strip() if row['return'] else "void"
+        command_name = row['name'].strip()
+        params = row['paramater'].strip() if row['paramater'] else "void"
+        method_type = row['type'].strip().lower()
+        description = row['description'].strip()
+        usage = row['usage'].strip()
+        category = row['category'].strip()
+
+        if lastCategory != category:
+            docContent.append(f"## {number}. {category}\n\n")
+            number = number + 1
+            lastCategory = category
+
+        if method_type:
+            docContent.append(f"#### {command_name}\n")
+            if returnParameter == "void":
+                docContent.append(f"**Return**: void  \n")
+            else:
+                docContent.append(f"**Return**:  \n")
+                docContent.append(f"- `{returnParameter}`  \n")
+                docContent.append(f"\n")
+            if params == "void":
+                docContent.append(f"**Parameters**: void  \n")
+            else:
+                docContent.append(f"**Parameters**:  \n")
+                for param in params.split(','):
+                    docContent.append(f"- `{param}`  \n")
+                docContent.append(f"\n")
+            if description:
+                docContent.append(f"**Description**: {description}  \n")
+            if usage:
+                docContent.append(f"**Usage**: {usage}  \n")
+            docContent.append(f"\n\n---\n\n")
+    return docContent
+
 def update_file(header_file, content, marker):
     with open(header_file, 'r') as file:
         lines = file.readlines()
 
-    start_marker = "// Start auto generation " + marker
-    end_marker = "// End auto generation " + marker
+    start_markers = [
+        f"<!-- Start auto generation {marker} -->",
+        f"// Start auto generation {marker}"
+    ]
+    end_markers = [
+        f"<!-- End auto generation {marker} -->",
+        f"// End auto generation {marker}"
+    ]
+
     start_idx, end_idx = None, None
 
+
     for idx, line in enumerate(lines):
-        if start_marker in line:
+        if any(start_marker in line for start_marker in start_markers):
             start_idx = idx
-        if end_marker in line:
+        if any(end_marker in line for end_marker in end_markers):
             end_idx = idx
             break
 
@@ -225,12 +285,26 @@ def update_file(header_file, content, marker):
         print("Marqueurs non trouvés dans le fichier.")
         return
 
+    start_marker_line = lines[start_idx].strip()
+    if start_marker_line.startswith("<!--"):
+        comment_style = "<!-- -->"
+    else:
+        comment_style = "//"
+
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     command_comment = "python3 autoGen.py"
 
-    generated_content = []
-    generated_content.append(f"// Last generation {current_time}: {command_comment}\n")
-    generated_content.append("// DO NOT EDIT\n")
+    if comment_style == "<!-- -->":
+        generated_content = [
+            f"<!-- Last generation {current_time}: {command_comment} -->\n",
+            "<!-- DO NOT EDIT -->\n"
+        ]
+    else:
+        generated_content = [
+            f"// Last generation {current_time}: {command_comment}\n",
+            "// DO NOT EDIT\n"
+        ]
+
     generated_content.extend(content)
 
     updated_lines = (
@@ -241,7 +315,7 @@ def update_file(header_file, content, marker):
 
     with open(header_file, 'w') as file:
         file.writelines(updated_lines)
-    print(f"Le fichier {header_file} a été mis à jour avec succès. {len(generated_content)} lignes")
+    print(f"Le fichier {header_file} a été mis à jour avec succès. {len(generated_content)} lignes ajoutées.")
 
 
 with open(csv_file, 'r') as csvfile:
@@ -262,3 +336,6 @@ with open(csv_file, 'r') as csvfile:
 
     content_function_interface = create_function_interface_content(rows)
     update_file(function_interface_file, content_function_interface, "CMD_ROBOT_FUNCTION_INTERFACE")
+
+    content_doc = create_doc_content(rows)
+    update_file(doc_file, content_doc, "CMD_DOC")

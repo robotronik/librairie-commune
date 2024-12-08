@@ -11,7 +11,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_HEADER
-// Last generation 2024-12-08 16:19:33: python3 autoGen.py
+// Last generation 2024-12-08 19:31:48: python3 autoGen.py
 // DO NOT EDIT
 public:
     void turn_on_LED_1();
@@ -49,8 +49,8 @@ public:
 
     //Overloding function
     int16_t get_linear_error(void);
-    int16_t get_angular_error();
-    int16_t get_braking_distance();
+    int16_t get_angular_error(void);
+    int16_t get_braking_distance(void);
 
 private:
 
