@@ -6,45 +6,37 @@ This document provides a comprehensive overview of the available commands in the
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2024-12-08 19:31:48: python3 autoGen.py -->
+<!-- Last generation 2024-12-10 23:28:06: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
 ## Table of Contents
-1. [LED_STATUS](#LED_STATUS)
+1. [LED](#LED)
 2. [COORDINATE](#COORDINATE)
 3. [COMMANDE](#COMMANDE)
-4. [MOTOR](#MOTOR)
-5. [PARAMETER](#PARAMETER)
-6. [COMMANDE](#COMMANDE)
-## 1. LED_STATUS
+4. [STATUS](#STATUS)
+5. [MOTOR](#MOTOR)
+6. [PARAMETER](#PARAMETER)
+7. [CALIBRATION](#CALIBRATION)
+8. [OPTIMIZATION](#OPTIMIZATION)
+## 1. LED
 
-#### turn_on_LED_1
+#### set_led_1
 **Return**: void  
-**Parameters**: void  
-**Description**: turn led 1 on  
+**Parameters**:  
+- `bool status`  
+
+**Description**: set status led 1  
+**Usage**: debug i2c interface  
 
 
 ---
 
-#### turn_off_LED_1
+#### set_led_2
 **Return**: void  
-**Parameters**: void  
-**Description**: turn led 1 on  
+**Parameters**:  
+- `bool status`  
 
-
----
-
-#### turn_on_LED_2
-**Return**: void  
-**Parameters**: void  
-**Description**: turn led 1 on  
-
-
----
-
-#### turn_off_LED_2
-**Return**: void  
-**Parameters**: void  
-**Description**: turn led 1 on  
+**Description**: set status led 2  
+**Usage**: debug i2c interface  
 
 
 ---
@@ -80,223 +72,29 @@ This document provides a comprehensive overview of the available commands in the
 #### stop
 **Return**: void  
 **Parameters**: void  
-**Description**: stop (a cleanne deceleration is provide and the commande buffer is clean  
+**Description**: stop (a cleanne deceleration is provide and the commande buffer is clean)  
+**Usage**: ex: stop if you want change the path  
 
 
 ---
 
-#### set_consigne_lineaire
-**Return**: void  
-**Parameters**:  
-- `int16_t x`  
-- ` int16_t y`  
-
-
-
----
-
-#### set_consigne_angulaire
-**Return**: void  
-**Parameters**:  
-- `int16_t angle`  
-- ` int16_t rotation`  
-
-
-
----
-
-#### set_consigne_lookAt_forward
-**Return**: void  
-**Parameters**:  
-- `int16_t x`  
-- ` int16_t y`  
-- ` int16_t rotation`  
-
-
-
----
-
-#### set_consigne_lookAt_backward
-**Return**: void  
-**Parameters**:  
-- `int16_t x`  
-- ` int16_t y`  
-- ` int16_t rotation`  
-
-
-
----
-
-#### robot_moving_is_finish
-**Return**: void  
-**Parameters**:  
-- `int16_t &resbool`  
-
-
-
----
-
-#### robot_running_is_finish
-**Return**: void  
-**Parameters**:  
-- `int16_t &resbool`  
-
-
-
----
-
-#### robot_turning_is_finish
-**Return**: void  
-**Parameters**:  
-- `int16_t &resbool`  
-
-
-
----
-
-#### get_linear_error
-**Return**: void  
-**Parameters**:  
-- `int16_t &error`  
-
-
-
----
-
-#### get_angular_error
-**Return**: void  
-**Parameters**:  
-- `int16_t &error`  
-
-
-
----
-
-#### get_braking_distance
-**Return**: void  
-**Parameters**:  
-- `int16_t &distance`  
-
-
-
----
-
-#### get_robot_running
-**Return**: void  
-**Parameters**:  
-- `bool &robot_runnning`  
-
-
-
----
-
-#### get_directio_side
-**Return**: void  
-**Parameters**:  
-- `Direction &direction_side`  
-
-
-
----
-
-#### get_rotation_side
-**Return**: void  
-**Parameters**:  
-- `Rotation &rotation_side`  
-
-
-
----
-
-#### get_current_consigne
-**Return**: void  
-**Parameters**:  
-- `int16_t &x`  
-- ` int16_t &y`  
-- ` int16_t &theta`  
-
-
-
----
-
-## 4. MOTOR
-
-#### disable_motor
+#### pause
 **Return**: void  
 **Parameters**: void  
+**Description**: pause (a cleanne deceleration is provide and the current commande and all next commande is keep for a future resume)  
+**Usage**: ex: when you want to wait for what the enemy robot pass (you can use stop after pause if you don't want to resume)  
 
 
 ---
 
-#### enable_motor
+#### resume
 **Return**: void  
 **Parameters**: void  
+**Description**: resume after pause  
+**Usage**: ex: resume when the enemy robot is no longer in front  
 
 
 ---
-
-#### brake_on
-**Return**: void  
-**Parameters**: void  
-
-
----
-
-#### brake_off
-**Return**: void  
-**Parameters**: void  
-
-
----
-
-## 5. PARAMETER
-
-#### set_max_torque
-**Return**: void  
-**Parameters**:  
-- `int16_t max_torque`  
-
-
-
----
-
-#### set_max_speed_forward
-**Return**: void  
-**Parameters**:  
-- `int16_t speed`  
-
-
-
----
-
-#### set_max_speed_backward
-**Return**: void  
-**Parameters**:  
-- `int16_t speed`  
-
-
-
----
-
-#### set_max_speed_trigo
-**Return**: void  
-**Parameters**:  
-- `int16_t speed`  
-
-
-
----
-
-#### set_max_speed_horloge
-**Return**: void  
-**Parameters**:  
-- `int16_t speed`  
-
-
-
----
-
-## 6. COMMANDE
 
 #### go_to_point
 **Return**: void  
@@ -306,6 +104,7 @@ This document provides a comprehensive overview of the available commands in the
 - `Rotation rotation = Rotation::SHORTEST`  
 - ` Direction direction = Direction::FORWARD`  
 
+**Description**: the robot go to point  
 
 
 ---
@@ -320,6 +119,131 @@ This document provides a comprehensive overview of the available commands in the
 - ` Direction direction`  
 - ` Rotation rotationSecond`  
 
+**Description**: the robot go to point and turn at the final position  
+
+
+---
+
+#### consigne_angulaire
+**Return**: void  
+**Parameters**:  
+- `int16_t angle`  
+- ` int16_t rotation`  
+
+**Description**: to make the robot turn on itself by indicating an angle  
+
+
+---
+
+#### consigne_angulaire_lookAt
+**Return**: void  
+**Parameters**:  
+- `int16_t x`  
+- ` int16_t y`  
+- ` int16_t rotation`  
+- ` Rotation rotation = Rotation::SHORTEST`  
+- ` Direction direction = Direction::FORWARD`  
+
+**Description**: to make the robot turn on itself by indicating a point to look  
+
+
+---
+
+## 4. STATUS
+
+#### get_braking_distance
+**Return**:  
+- `int16_t`  
+
+**Parameters**: void  
+**Description**: give the distance to stop the robot when stop or pause is use (not applicable with brake)  
+**Usage**: This allows you to determine the distance at which to start braking. Used with lidar, it allows you to determine when to start stopping the robot  
+
+
+---
+
+#### get_commande_buffer_size
+**Return**:  
+- `int16_t`  
+
+**Parameters**: void  
+**Description**: number of command remaining (with the current command)  
+**Usage**: can be use to determine the free space in the command buffer if you want send a path with lot of got to point or angle. It can also be use to dertermine when the robot movement is finish  
+
+
+---
+
+#### get_direction_side
+**Return**:  
+- `Direction`  
+
+**Parameters**: void  
+**Description**: give the direction (NONE when the robot don't move backward or forward)  
+**Usage**: usefull to dermine wich side of the lidar point is usefull to look when you want avoid the enemy robot  
+
+
+---
+
+#### get_rotation_side
+**Return**:  
+- `Rotation`  
+
+**Parameters**: void  
+**Description**: give the rotation  
+
+
+---
+
+#### get_current_consigne
+**Return**: void  
+**Parameters**:  
+- `int16_t &x`  
+- ` int16_t &y`  
+- ` int16_t &theta`  
+- ` Type type`  
+
+**Description**: get current static consigne (angular consigne may change as robot moves forward or backward to compensate path variations)  
+
+
+---
+
+#### get_current_consigne
+**Return**:  
+- `Consigne`  
+
+**Parameters**: void  
+**Description**: Overloading  
+
+
+---
+
+#### get_moving_is_finish
+**Return**:  
+- `int16_t`  
+
+**Parameters**: void  
+**Description**: return true when the current consigne is finish (is equal to between get_running_is_finish or get_turning_is_finish)  
+**Usage**: when you pause the robot, to know when the robot is stop because you can't use get_commande_buffer_size. Otherwise, prefere to use get_commande_buffer_size.  
+
+
+---
+
+#### get_running_is_finish
+**Return**:  
+- `int16_t`  
+
+**Parameters**: void  
+**Description**: return true when the linear current consigne is finish  
+
+
+---
+
+#### get_turning_is_finish
+**Return**:  
+- `int16_t`  
+
+**Parameters**: void  
+**Description**: return true when the angular current consigne is finish  
 
 
 ---
@@ -328,7 +252,10 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**: void  
+**Parameters**:  
+- `int16_t &error`  
+
+**Description**: return the error between the dynamic consigne and the robot  
 
 
 ---
@@ -337,16 +264,372 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**: void  
+**Parameters**:  
+- `int16_t &error`  
+
+**Description**: return the error between the dynamic consigne and the robot  
 
 
 ---
 
-#### get_braking_distance
+#### get_current
+**Return**: void  
+**Parameters**:  
+- `int16_t &currentLeft`  
+- ` int16_t &currentLeft`  
+
+**Description**: gives the current average since the last reading for each motor  
+
+
+---
+
+#### get_speed
+**Return**: void  
+**Parameters**:  
+- `int16_t &speedLeft`  
+- ` int16_t &speedLeft`  
+
+**Description**: gives the speed average since the last reading for each motor  
+
+
+---
+
+## 5. MOTOR
+
+#### enable_motor
+**Return**: void  
+**Parameters**:  
+- `bool motorEnable`  
+
+**Description**: enable motor (the motor are disable at startup)  
+**Usage**: enable motor at the begening of a match and stop motor when the main program is finish or kill to avoid problems and to move freely the robot  
+
+
+---
+
+#### enable_brake
+**Return**: void  
+**Parameters**:  
+- `bool brakeEnable`  
+
+**Description**: enable brake (the brake are disable at startup).  
+**Usage**: use to stop quickly the robot, but prefere to use pause or stop  
+
+
+---
+
+## 6. PARAMETER
+
+#### set_max_torque
+**Return**: void  
+**Parameters**:  
+- `int16_t max_torque`  
+
+**Description**: set max torque  
+**Usage**: constant  
+
+
+---
+
+#### set_max_speed_forward
+**Return**: void  
+**Parameters**:  
+- `int16_t speed`  
+
+**Description**: set max speed forward  
+**Usage**: constant  
+
+
+---
+
+#### set_max_speed_backward
+**Return**: void  
+**Parameters**:  
+- `int16_t speed`  
+
+**Description**: set max speed backward  
+**Usage**: constant  
+
+
+---
+
+#### set_max_speed_trigo
+**Return**: void  
+**Parameters**:  
+- `int16_t speed`  
+
+**Description**: set max speed anticlockwise  
+**Usage**: constant  
+
+
+---
+
+#### set_max_speed_horloge
+**Return**: void  
+**Parameters**:  
+- `int16_t speed`  
+
+**Description**: set max speed clockwise  
+**Usage**: constant  
+
+
+---
+
+#### set_pid_linear_static
+**Return**: void  
+**Parameters**:  
+- `int16_t p`  
+- ` int16_t i`  
+- ` int16_t d`  
+
+**Description**: set pid linear static  
+**Usage**: constant  
+
+
+---
+
+#### set_pid_linear_dynamic
+**Return**: void  
+**Parameters**:  
+- `int16_t p`  
+- ` int16_t i`  
+- ` int16_t d`  
+
+**Description**: set pid linear dynamic  
+**Usage**: constant  
+
+
+---
+
+#### set_pid_angular_static
+**Return**: void  
+**Parameters**:  
+- `int16_t p`  
+- ` int16_t i`  
+- ` int16_t d`  
+
+**Description**: set pid angular static  
+**Usage**: constant  
+
+
+---
+
+#### set_pid_angular_dynamic
+**Return**: void  
+**Parameters**:  
+- `int16_t p`  
+- ` int16_t i`  
+- ` int16_t d`  
+
+**Description**: set pid angular dynamic  
+**Usage**: constant  
+
+
+---
+
+#### set_odometry_metric
+**Return**: void  
+**Parameters**:  
+- `int16_t sizeWheelLeft`  
+- ` int16_t sizeWheelRigth`  
+- ` int16_t spaceInterWheel`  
+
+**Description**: set odometry metric  
+**Usage**: constant  
+
+
+---
+
+#### get_max_torque
 **Return**:  
 - `int16_t`  
 
+**Parameters**:  
+- `int16_t max_torque`  
+
+**Description**: get max torque  
+**Usage**: constant  
+
+
+---
+
+#### get_max_speed_forward
+**Return**:  
+- `int16_t`  
+
+**Parameters**:  
+- `int16_t speed`  
+
+**Description**: get max speed forward  
+**Usage**: constant  
+
+
+---
+
+#### get_max_speed_backward
+**Return**:  
+- `int16_t`  
+
+**Parameters**:  
+- `int16_t speed`  
+
+**Description**: get max speed backward  
+**Usage**: constant  
+
+
+---
+
+#### get_max_speed_trigo
+**Return**:  
+- `int16_t`  
+
+**Parameters**:  
+- `int16_t speed`  
+
+**Description**: get max speed anticlockwise  
+**Usage**: constant  
+
+
+---
+
+#### get_max_speed_horloge
+**Return**:  
+- `int16_t`  
+
+**Parameters**:  
+- `int16_t speed`  
+
+**Description**: get max speed clockwise  
+**Usage**: constant  
+
+
+---
+
+#### get_pid_linear_static
+**Return**: void  
+**Parameters**:  
+- `int16_t &p`  
+- ` int16_t &i`  
+- ` int16_t &d`  
+
+**Description**: get pid linear static  
+**Usage**: constant  
+
+
+---
+
+#### get_pid_linear_dynamic
+**Return**: void  
+**Parameters**:  
+- `int16_t &p`  
+- ` int16_t &i`  
+- ` int16_t &d`  
+
+**Description**: get pid linear dynamic  
+**Usage**: constant  
+
+
+---
+
+#### get_pid_angular_static
+**Return**: void  
+**Parameters**:  
+- `int16_t &p`  
+- ` int16_t &i`  
+- ` int16_t &d`  
+
+**Description**: get pid angular static  
+**Usage**: constant  
+
+
+---
+
+#### get_pid_angular_dynamic
+**Return**: void  
+**Parameters**:  
+- `int16_t &p`  
+- ` int16_t &i`  
+- ` int16_t &d`  
+
+**Description**: get pid angular dynamic  
+**Usage**: constant  
+
+
+---
+
+#### get_odometry_metric
+**Return**: void  
+**Parameters**:  
+- `int16_t &sizeWheelLeft`  
+- ` int16_t &sizeWheelRigth`  
+- ` int16_t &spaceInterWheel`  
+
+**Description**: get odometry metric  
+**Usage**: constant  
+
+
+---
+
+## 7. CALIBRATION
+
+#### start_calibration
+**Return**: void  
 **Parameters**: void  
+**Description**: future (calculate odometrie metric)  
+
+
+---
+
+#### end_calibration
+**Return**: void  
+**Parameters**: void  
+**Description**: future (calculate odometrie metric)  
+
+
+---
+
+#### get_status_calibration
+**Return**: void  
+**Parameters**: void  
+**Description**: future (calculate odometrie metric)  
+
+
+---
+
+## 8. OPTIMIZATION
+
+#### get_all_status
+**Return**: void  
+**Parameters**: void  
+**Description**: future (get all informations in one command for more optimisation)  
+**Usage**: to optimise the main code with a loop: get, compute, set  
+
+
+---
+
+#### get_all_error
+**Return**: void  
+**Parameters**: void  
+**Description**: future (get all informations in one command for more optimisation)  
+**Usage**: to optimise the main code with a loop: get, compute, set  
+
+
+---
+
+#### get_all_parameter
+**Return**: void  
+**Parameters**: void  
+**Description**: future (get all informations in one command for more optimisation)  
+**Usage**: to optimise the main code with a loop: get, compute, set  
+
+
+---
+
+#### set_all_parameter
+**Return**: void  
+**Parameters**: void  
+**Description**: future (set all informations in one command for more optimisation)  
+**Usage**: to optimise the main code with a loop: get, compute, set  
 
 
 ---
