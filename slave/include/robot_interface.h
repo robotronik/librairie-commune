@@ -12,41 +12,61 @@ public:
 
 //***********************************************
 // Start auto generation CMD_ROBOT_INTERFACE
-// Last generation 2024-12-08 19:31:48: python3 autoGen.py
+// Last generation 2024-12-11 17:27:50: python3 autoGen.py
 // DO NOT EDIT
 private:
-    virtual void turn_on_LED_1() = 0;
-    virtual void turn_off_LED_1() = 0;
-    virtual void turn_on_LED_2() = 0;
-    virtual void turn_off_LED_2() = 0;
+    virtual void set_led_1(bool status) = 0;
+    virtual void set_led_2(bool status) = 0;
     virtual void get_coordinates(int16_t &x, int16_t &y, int16_t &theta) = 0;
     virtual void set_coordinates(int16_t x, int16_t y, int16_t theta) = 0;
     virtual void stop() = 0;
-    virtual void set_consigne_lineaire(int16_t x, int16_t y) = 0;
-    virtual void set_consigne_angulaire(int16_t angle, int16_t rotation) = 0;
-    virtual void set_consigne_lookAt_forward(int16_t x, int16_t y, int16_t rotation) = 0;
-    virtual void set_consigne_lookAt_backward(int16_t x, int16_t y, int16_t rotation) = 0;
-    virtual void robot_moving_is_finish(int16_t &resbool) = 0;
-    virtual void robot_running_is_finish(int16_t &resbool) = 0;
-    virtual void robot_turning_is_finish(int16_t &resbool) = 0;
+    virtual void pause() = 0;
+    virtual void resume() = 0;
+    virtual void go_to_point(int16_t x,int16_t y,Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD) = 0;
+    virtual void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond) = 0;
+    virtual void consigne_angulaire(int16_t angle, Rotation rotation = Rotation::SHORTEST) = 0;
+    virtual void consigne_angulaire(int16_t x, int16_t y, Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD) = 0;
+    virtual void get_braking_distance() = 0;
+    virtual void get_commande_buffer_size() = 0;
+    virtual void get_direction_side() = 0;
+    virtual void get_rotation_side() = 0;
+    virtual void get_current_target(int16_t &x, int16_t &y, int16_t &theta) = 0;
+    virtual void get_moving_is_done() = 0;
+    virtual void get_running_is_done() = 0;
+    virtual void get_turning_is_done() = 0;
     virtual void get_linear_error(int16_t &error) = 0;
     virtual void get_angular_error(int16_t &error) = 0;
-    virtual void get_braking_distance(int16_t &distance) = 0;
-    virtual void get_robot_running(bool &robot_runnning) = 0;
-    virtual void get_directio_side(Direction &direction_side) = 0;
-    virtual void get_rotation_side(Rotation &rotation_side) = 0;
-    virtual void get_current_consigne(int16_t &x, int16_t &y, int16_t &theta) = 0;
-    virtual void disable_motor() = 0;
-    virtual void enable_motor() = 0;
-    virtual void brake_on() = 0;
-    virtual void brake_off() = 0;
+    virtual void get_current(int16_t &currentRigth, int16_t &currentLeft) = 0;
+    virtual void get_speed(int16_t &speedRigth, int16_t &speedLeft) = 0;
+    virtual void set_motor_state(bool motorEnable) = 0;
+    virtual void set_brake_state(bool brakeEnable) = 0;
     virtual void set_max_torque(int16_t max_torque) = 0;
     virtual void set_max_speed_forward(int16_t speed) = 0;
     virtual void set_max_speed_backward(int16_t speed) = 0;
     virtual void set_max_speed_trigo(int16_t speed) = 0;
     virtual void set_max_speed_horloge(int16_t speed) = 0;
-    virtual void go_to_point(int16_t x,int16_t y,Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD) = 0;
-    virtual void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond) = 0;
+    virtual void set_pid_linear_static(int16_t p, int16_t i, int16_t d) = 0;
+    virtual void set_pid_linear_dynamic(int16_t p, int16_t i, int16_t d) = 0;
+    virtual void set_pid_angular_static(int16_t p, int16_t i, int16_t d) = 0;
+    virtual void set_pid_angular_dynamic(int16_t p, int16_t i, int16_t d) = 0;
+    virtual void set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRigth, int16_t spaceInterWheel) = 0;
+    virtual void get_max_torque(int16_t max_torque) = 0;
+    virtual void get_max_speed_forward(int16_t speed) = 0;
+    virtual void get_max_speed_backward(int16_t speed) = 0;
+    virtual void get_max_speed_trigo(int16_t speed) = 0;
+    virtual void get_max_speed_horloge(int16_t speed) = 0;
+    virtual void get_pid_linear_static(int16_t &p, int16_t &i, int16_t &d) = 0;
+    virtual void get_pid_linear_dynamic(int16_t &p, int16_t &i, int16_t &d) = 0;
+    virtual void get_pid_angular_static(int16_t &p, int16_t &i, int16_t &d) = 0;
+    virtual void get_pid_angular_dynamic(int16_t &p, int16_t &i, int16_t &d) = 0;
+    virtual void get_odometry_metric(int16_t &sizeWheelLeft, int16_t &sizeWheelRigth, int16_t &spaceInterWheel) = 0;
+    virtual void start_calibration() = 0;
+    virtual void end_calibration() = 0;
+    virtual void get_status_calibration() = 0;
+    virtual void get_all_status() = 0;
+    virtual void get_all_error() = 0;
+    virtual void get_all_parameter() = 0;
+    virtual void set_all_parameter() = 0;
 // End auto generation CMD_ROBOT_INTERFACE
 //***********************************************
 

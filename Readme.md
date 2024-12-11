@@ -6,7 +6,7 @@ This document provides a comprehensive overview of the available commands in the
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2024-12-10 23:28:06: python3 autoGen.py -->
+<!-- Last generation 2024-12-11 17:28:34: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
 ## Table of Contents
 1. [LED](#LED)
@@ -72,7 +72,7 @@ This document provides a comprehensive overview of the available commands in the
 #### stop
 **Return**: void  
 **Parameters**: void  
-**Description**: stop (a cleanne deceleration is provide and the commande buffer is clean)  
+**Description**: stop (a clean deceleration is provide and the commande buffer is clean)  
 **Usage**: ex: stop if you want change the path  
 
 
@@ -81,8 +81,8 @@ This document provides a comprehensive overview of the available commands in the
 #### pause
 **Return**: void  
 **Parameters**: void  
-**Description**: pause (a cleanne deceleration is provide and the current commande and all next commande is keep for a future resume)  
-**Usage**: ex: when you want to wait for what the enemy robot pass (you can use stop after pause if you don't want to resume)  
+**Description**: pause (a clean deceleration is provide and the current commande and all next commande is keep for a future resume)  
+**Usage**: ex: when you want to wait for what the opponent robot pass (you can use stop after pause if you don't want to resume)  
 
 
 ---
@@ -91,7 +91,7 @@ This document provides a comprehensive overview of the available commands in the
 **Return**: void  
 **Parameters**: void  
 **Description**: resume after pause  
-**Usage**: ex: resume when the enemy robot is no longer in front  
+**Usage**: ex: resume when the opponent robot is no longer in front  
 
 
 ---
@@ -128,19 +128,18 @@ This document provides a comprehensive overview of the available commands in the
 **Return**: void  
 **Parameters**:  
 - `int16_t angle`  
-- ` int16_t rotation`  
+- ` Rotation rotation = Rotation::SHORTEST`  
 
 **Description**: to make the robot turn on itself by indicating an angle  
 
 
 ---
 
-#### consigne_angulaire_lookAt
+#### consigne_angulaire
 **Return**: void  
 **Parameters**:  
 - `int16_t x`  
 - ` int16_t y`  
-- ` int16_t rotation`  
 - ` Rotation rotation = Rotation::SHORTEST`  
 - ` Direction direction = Direction::FORWARD`  
 
@@ -179,7 +178,7 @@ This document provides a comprehensive overview of the available commands in the
 
 **Parameters**: void  
 **Description**: give the direction (NONE when the robot don't move backward or forward)  
-**Usage**: usefull to dermine wich side of the lidar point is usefull to look when you want avoid the enemy robot  
+**Usage**: usefull to dermine wich side of the lidar point is usefull to look when you want avoid the opponent robot  
 
 
 ---
@@ -194,30 +193,27 @@ This document provides a comprehensive overview of the available commands in the
 
 ---
 
-#### get_current_consigne
+#### get_current_target
 **Return**: void  
 **Parameters**:  
 - `int16_t &x`  
 - ` int16_t &y`  
 - ` int16_t &theta`  
-- ` Type type`  
 
 **Description**: get current static consigne (angular consigne may change as robot moves forward or backward to compensate path variations)  
 
 
 ---
 
-#### get_current_consigne
-**Return**:  
-- `Consigne`  
-
+#### get_current_target
+**Return**: void  
 **Parameters**: void  
 **Description**: Overloading  
 
 
 ---
 
-#### get_moving_is_finish
+#### get_moving_is_done
 **Return**:  
 - `int16_t`  
 
@@ -228,7 +224,7 @@ This document provides a comprehensive overview of the available commands in the
 
 ---
 
-#### get_running_is_finish
+#### get_running_is_done
 **Return**:  
 - `int16_t`  
 
@@ -238,7 +234,7 @@ This document provides a comprehensive overview of the available commands in the
 
 ---
 
-#### get_turning_is_finish
+#### get_turning_is_done
 **Return**:  
 - `int16_t`  
 
@@ -275,7 +271,7 @@ This document provides a comprehensive overview of the available commands in the
 #### get_current
 **Return**: void  
 **Parameters**:  
-- `int16_t &currentLeft`  
+- `int16_t &currentRigth`  
 - ` int16_t &currentLeft`  
 
 **Description**: gives the current average since the last reading for each motor  
@@ -286,7 +282,7 @@ This document provides a comprehensive overview of the available commands in the
 #### get_speed
 **Return**: void  
 **Parameters**:  
-- `int16_t &speedLeft`  
+- `int16_t &speedRigth`  
 - ` int16_t &speedLeft`  
 
 **Description**: gives the speed average since the last reading for each motor  
@@ -296,18 +292,18 @@ This document provides a comprehensive overview of the available commands in the
 
 ## 5. MOTOR
 
-#### enable_motor
+#### set_motor_state
 **Return**: void  
 **Parameters**:  
 - `bool motorEnable`  
 
-**Description**: enable motor (the motor are disable at startup)  
+**Description**: enable enables the motors (disabled at startup)  
 **Usage**: enable motor at the begening of a match and stop motor when the main program is finish or kill to avoid problems and to move freely the robot  
 
 
 ---
 
-#### enable_brake
+#### set_brake_state
 **Return**: void  
 **Parameters**:  
 - `bool brakeEnable`  
