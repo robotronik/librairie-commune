@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_ROBOT_FUNCTION_INTERFACE
-// Last generation 2024-12-15 12:45:43: python3 autoGen.py
+// Last generation 2024-12-15 13:59:15: python3 autoGen.py
 // DO NOT EDIT
 void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
     uint8_t dataPack[64];
@@ -130,7 +130,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
         }
         case 51:{
             int16_t retParam;
-            retParam = get_commande_buffer_size();
+            retParam = get_command_buffer_size();
             packer.addUint16((int16_t)retParam);
             break;
         }

@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2024-12-15 12:45:43: python3 autoGen.py
+// Last generation 2024-12-15 13:59:15: python3 autoGen.py
 // DO NOT EDIT
 void asservissement_interface::set_led_1(bool status){
     DataPacker packer;
@@ -112,7 +112,7 @@ int16_t asservissement_interface::get_braking_distance(){
     return (int16_t)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_commande_buffer_size(){
+int16_t asservissement_interface::get_command_buffer_size(){
     uint8_t data[2];
     int length = 2;
     I2cReceiveData(52, data, length);

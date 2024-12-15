@@ -14,10 +14,10 @@ The beginning of this document explains general information about the interface,
 | Category      | usage      |
 |------------|----------------|
 | LED | Use to debug |
-| COORDINATE | get or set coordinate (set coordinate when the robot is stop) |
-| COMMANDE | Send all commands to move the robot from a point A to B. You can send utils 1000 basic commande in one time and the robot will execute all commande successively. The buffer size tells you how many commands the robot still has to execute. |
-| STATUS | Give all status robot |
-| MOTOR | Instante commande apply to motor. Use only for emerengcy or the robot start or stop |
+| COORDINATE | get or set coordinate |
+| COMMANDE | Send all commands to move the robot from a point A to B. You can send until 1000 basic command in one time and the robot will execute all command successively. The get buffer size tells you how many commands the robot still has to execute. |
+| STATUS | Give all robot status|
+| MOTOR | Instante command apply to motor. Use only for emerengcy or at the beging or the end of the match  |
 | PARAMETER | maximum static parameter (don't change during the match) |
 | CALIBRATION | TODO use to calibrate the odometrie (don't change during the match) |
 | OPTIMIZATION | TODO |
@@ -36,16 +36,16 @@ robot.set_linear_max_speed(20);     //go slowly for the next action
 robot.go_to_point(1000,1300);       //action like clolect something
 robot.set_linear_max_speed(0);      //reset slowly speed with default value
 
-while(robot.get_commande_buffer_size() != 0) //wait end of all action above
+while(robot.get_command_buffer_size() != 0) //wait end of all action above
 {
     if(robot.get_direction_side() == Direction::FORWARD){
         if(robot.get_braking_distance() > lidar.collideDistanceFORWARD()){ //stop befor collide the opponent
-            if(robotIsStall == false){ //to send only one time pause commande
+            if(robotIsStall == false){ //to send only one time pause command
                 robot.pause();
                 robotIsStall = true;
             }
             if(WAIT_5S_BEFORE_TO_FIND_A_NEW_PATH_OR_AN_OTHER_ACTION){
-                robot.stop(); //to reset the commande buffer and delete all commande not yet execute
+                robot.stop(); //to reset the command buffer and delete all command not yet execute
                 break;
             }
         }
@@ -101,12 +101,12 @@ python3 autoGen.py
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2024-12-15 13:52:22: python3 autoGen.py -->
+<!-- Last generation 2024-12-15 13:59:15: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
 ## Table of focntions
 1. [LED](#LED)
 2. [COORDINATE](#COORDINATE)
-3. [COMMANDE](#COMMANDE)
+3. [COMMAND](#COMMAND)
 4. [STATUS](#STATUS)
 5. [MOTOR](#MOTOR)
 6. [PARAMETER](#PARAMETER)
@@ -162,12 +162,12 @@ python3 autoGen.py
 
 ---
 
-## 3. COMMANDE
+## 3. COMMAND
 
 #### stop
 **Return**: void  
 **Parameters**: void  
-**Description**: stop (a clean deceleration is provide and the commande buffer is clean)  
+**Description**: stop (a clean deceleration is provide and the command buffer is clean)  
 **Usage**: ex: stop if you want change the path  
 
 
@@ -176,7 +176,7 @@ python3 autoGen.py
 #### pause
 **Return**: void  
 **Parameters**: void  
-**Description**: pause (a clean deceleration is provide and the current commande and all next commande is keep for a future resume)  
+**Description**: pause (a clean deceleration is provide and the current command and all next command is keep for a future resume)  
 **Usage**: ex: when you want to wait for what the opponent robot pass (you can use stop after pause if you don't want to resume)  
 
 
@@ -282,7 +282,7 @@ python3 autoGen.py
 
 ---
 
-#### get_commande_buffer_size
+#### get_command_buffer_size
 **Return**:  
 - `int16_t`  
 

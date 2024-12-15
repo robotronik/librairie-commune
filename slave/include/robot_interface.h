@@ -12,7 +12,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_ROBOT_INTERFACE
-// Last generation 2024-12-15 12:45:43: python3 autoGen.py
+// Last generation 2024-12-15 13:59:15: python3 autoGen.py
 // DO NOT EDIT
 private:
     virtual void set_led_1(bool status) = 0;
@@ -29,7 +29,7 @@ private:
     virtual void set_linear_max_speed(int16_t max_speed, int16_t max_acceleration = 0, int16_t max_deceleration = 0) = 0;
     virtual void set_angular_max_speed(int16_t max_speed, int16_t max_acceleration = 0, int16_t max_deceleration = 0) = 0;
     virtual int16_t get_braking_distance() = 0;
-    virtual int16_t get_commande_buffer_size() = 0;
+    virtual int16_t get_command_buffer_size() = 0;
     virtual Direction get_direction_side() = 0;
     virtual Rotation get_rotation_side() = 0;
     virtual void get_current_target(int16_t &x, int16_t &y, int16_t &theta) = 0;
