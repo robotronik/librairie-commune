@@ -11,7 +11,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_HEADER
-// Last generation 2024-12-11 17:28:34: python3 autoGen.py
+// Last generation 2024-12-15 11:05:50: python3 autoGen.py
 // DO NOT EDIT
 public:
     void set_led_1(bool status);
@@ -30,11 +30,11 @@ public:
     Direction get_direction_side();
     Rotation get_rotation_side();
     void get_current_target(int16_t &x, int16_t &y, int16_t &theta);
-    int16_t get_moving_is_done();
-    int16_t get_running_is_done();
-    int16_t get_turning_is_done();
-    int16_t get_linear_error(int16_t &error);
-    int16_t get_angular_error(int16_t &error);
+    bool get_moving_is_done();
+    bool get_running_is_done();
+    bool get_turning_is_done();
+    int16_t get_linear_error();
+    int16_t get_angular_error();
     void get_current(int16_t &currentRigth, int16_t &currentLeft);
     void get_speed(int16_t &speedRigth, int16_t &speedLeft);
     void set_motor_state(bool motorEnable);
@@ -49,11 +49,11 @@ public:
     void set_pid_angular_static(int16_t p, int16_t i, int16_t d);
     void set_pid_angular_dynamic(int16_t p, int16_t i, int16_t d);
     void set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRigth, int16_t spaceInterWheel);
-    int16_t get_max_torque(int16_t max_torque);
-    int16_t get_max_speed_forward(int16_t speed);
-    int16_t get_max_speed_backward(int16_t speed);
-    int16_t get_max_speed_trigo(int16_t speed);
-    int16_t get_max_speed_horloge(int16_t speed);
+    int16_t get_max_torque();
+    int16_t get_max_speed_forward();
+    int16_t get_max_speed_backward();
+    int16_t get_max_speed_trigo();
+    int16_t get_max_speed_horloge();
     void get_pid_linear_static(int16_t &p, int16_t &i, int16_t &d);
     void get_pid_linear_dynamic(int16_t &p, int16_t &i, int16_t &d);
     void get_pid_angular_static(int16_t &p, int16_t &i, int16_t &d);

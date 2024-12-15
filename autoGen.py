@@ -69,8 +69,16 @@ def create_header_content(rows):
     generated_content.extend(private_methods_overloading)
     return generated_content
 
-def generate_function_content(param,commandId):
+def generate_function_content(param,returnParameter,commandId):
     function_content = []
+
+    if returnParameter != "void":
+        function_content.append( "    uint8_t data[2];\n")
+        function_content.append( "    int length = 2;\n")
+        function_content.append( "    I2cReceiveData(52, data, length);\n")
+        function_content.append( "    DataUnpacker unpacker(data, length);\n")
+        function_content.append(f"    return ({returnParameter})unpacker.popUint16();\n")
+        return function_content
 
     # empty focntion
     if not param:
@@ -129,7 +137,7 @@ def create_fonction_content(rows):
 
         if command_name and id:
             fonction.append(f"{returnParameter} asservissement_interface::{command_name}({output_params})" + "{\n")
-            fonction.extend(generate_function_content(output_params,row['commandId']))
+            fonction.extend(generate_function_content(output_params,returnParameter,row['commandId']))
             fonction.append("}\n\n")
     return fonction
 
@@ -141,9 +149,10 @@ def create_robot_interface_content(rows):
         command_name = row['name'].strip()
         param = row['paramater'].strip() if row['paramater'] else ""
         id = row['commandId'].strip()
+        returnParameter = row['return'].strip() if row['return'] else "void"
 
         if id:
-            virtual_methods.append(f"    virtual void {command_name}({param}) = 0;\n")
+            virtual_methods.append(f"    virtual {returnParameter} {command_name}({param}) = 0;\n")
     return virtual_methods
 
 def create_function_interface_content(rows):
@@ -162,6 +171,8 @@ def create_function_interface_content(rows):
 
         if id:
             function_content.append(f"        case {id}:" + "{\n")
+            if returnParameter != "void":
+                function_content.append(f"            {returnParameter} retParam;\n")
             for arg in params:
                 function_content.append(f"            {arg['type']} {arg['name']};\n")
             for arg in params:
@@ -172,7 +183,11 @@ def create_function_interface_content(rows):
                 function_param += f"{arg['name']}, "
             if function_param:
                 function_param = function_param[:-2]
-            function_content.append(f"            {command_name}({function_param});\n")
+            if returnParameter != "void":
+                function_content.append(f"            retParam = {command_name}({function_param});\n")
+                function_content.append(f"            packer.addUint16((int16_t)retParam);\n")
+            else:
+                function_content.append(f"            {command_name}({function_param});\n")
             for arg in params:
                 if arg['is_reference']:
                     function_content.append(f"            packer.addUint16((int16_t){arg['name']});\n")

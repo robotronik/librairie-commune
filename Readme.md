@@ -6,7 +6,7 @@ This document provides a comprehensive overview of the available commands in the
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2024-12-11 17:28:34: python3 autoGen.py -->
+<!-- Last generation 2024-12-15 11:05:50: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
 ## Table of Contents
 1. [LED](#LED)
@@ -215,7 +215,7 @@ This document provides a comprehensive overview of the available commands in the
 
 #### get_moving_is_done
 **Return**:  
-- `int16_t`  
+- `bool`  
 
 **Parameters**: void  
 **Description**: return true when the current consigne is finish (is equal to between get_running_is_finish or get_turning_is_finish)  
@@ -226,7 +226,7 @@ This document provides a comprehensive overview of the available commands in the
 
 #### get_running_is_done
 **Return**:  
-- `int16_t`  
+- `bool`  
 
 **Parameters**: void  
 **Description**: return true when the linear current consigne is finish  
@@ -236,7 +236,7 @@ This document provides a comprehensive overview of the available commands in the
 
 #### get_turning_is_done
 **Return**:  
-- `int16_t`  
+- `bool`  
 
 **Parameters**: void  
 **Description**: return true when the angular current consigne is finish  
@@ -248,9 +248,7 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**:  
-- `int16_t &error`  
-
+**Parameters**: void  
 **Description**: return the error between the dynamic consigne and the robot  
 
 
@@ -260,9 +258,7 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**:  
-- `int16_t &error`  
-
+**Parameters**: void  
 **Description**: return the error between the dynamic consigne and the robot  
 
 
@@ -440,9 +436,7 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**:  
-- `int16_t max_torque`  
-
+**Parameters**: void  
 **Description**: get max torque  
 **Usage**: constant  
 
@@ -453,9 +447,7 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**:  
-- `int16_t speed`  
-
+**Parameters**: void  
 **Description**: get max speed forward  
 **Usage**: constant  
 
@@ -466,9 +458,7 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**:  
-- `int16_t speed`  
-
+**Parameters**: void  
 **Description**: get max speed backward  
 **Usage**: constant  
 
@@ -479,9 +469,7 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**:  
-- `int16_t speed`  
-
+**Parameters**: void  
 **Description**: get max speed anticlockwise  
 **Usage**: constant  
 
@@ -492,9 +480,7 @@ This document provides a comprehensive overview of the available commands in the
 **Return**:  
 - `int16_t`  
 
-**Parameters**:  
-- `int16_t speed`  
-
+**Parameters**: void  
 **Description**: get max speed clockwise  
 **Usage**: constant  
 

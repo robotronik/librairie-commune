@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2024-12-11 17:31:02: python3 autoGen.py
+// Last generation 2024-12-15 11:05:50: python3 autoGen.py
 // DO NOT EDIT
 void asservissement_interface::set_led_1(bool status){
     DataPacker packer;
@@ -89,27 +89,35 @@ void asservissement_interface::consigne_angulaire(int16_t x, int16_t y, Rotation
 }
 
 int16_t asservissement_interface::get_braking_distance(){
-    uint8_t* data = nullptr;
-    int length = 0;
-    I2cSendData(50, data, length);
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
 }
 
 int16_t asservissement_interface::get_commande_buffer_size(){
-    uint8_t* data = nullptr;
-    int length = 0;
-    I2cSendData(51, data, length);
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
 }
 
 Direction asservissement_interface::get_direction_side(){
-    uint8_t* data = nullptr;
-    int length = 0;
-    I2cSendData(52, data, length);
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (Direction)unpacker.popUint16();
 }
 
 Rotation asservissement_interface::get_rotation_side(){
-    uint8_t* data = nullptr;
-    int length = 0;
-    I2cSendData(53, data, length);
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (Rotation)unpacker.popUint16();
 }
 
 void asservissement_interface::get_current_target(int16_t &x, int16_t &y, int16_t &theta){
@@ -122,38 +130,44 @@ void asservissement_interface::get_current_target(int16_t &x, int16_t &y, int16_
     theta = (int16_t)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_moving_is_done(){
-    uint8_t* data = nullptr;
-    int length = 0;
-    I2cSendData(55, data, length);
-}
-
-int16_t asservissement_interface::get_running_is_done(){
-    uint8_t* data = nullptr;
-    int length = 0;
-    I2cSendData(56, data, length);
-}
-
-int16_t asservissement_interface::get_turning_is_done(){
-    uint8_t* data = nullptr;
-    int length = 0;
-    I2cSendData(57, data, length);
-}
-
-int16_t asservissement_interface::get_linear_error(int16_t &error){
+bool asservissement_interface::get_moving_is_done(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(58, data, length);
+    I2cReceiveData(52, data, length);
     DataUnpacker unpacker(data, length);
-    error = (int16_t)unpacker.popUint16();
+    return (bool)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_angular_error(int16_t &error){
+bool asservissement_interface::get_running_is_done(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(59, data, length);
+    I2cReceiveData(52, data, length);
     DataUnpacker unpacker(data, length);
-    error = (int16_t)unpacker.popUint16();
+    return (bool)unpacker.popUint16();
+}
+
+bool asservissement_interface::get_turning_is_done(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (bool)unpacker.popUint16();
+}
+
+int16_t asservissement_interface::get_linear_error(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
+}
+
+int16_t asservissement_interface::get_angular_error(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
 }
 
 void asservissement_interface::get_current(int16_t &currentRigth, int16_t &currentLeft){
@@ -256,34 +270,44 @@ void asservissement_interface::set_odometry_metric(int16_t sizeWheelLeft, int16_
     I2cSendData(109, packer.getData(), packer.getSize());
 }
 
-int16_t asservissement_interface::get_max_torque(int16_t max_torque){
-    DataPacker packer;
-    packer.addUint16((int16_t)max_torque);
-    I2cSendData(130, packer.getData(), packer.getSize());
+int16_t asservissement_interface::get_max_torque(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_max_speed_forward(int16_t speed){
-    DataPacker packer;
-    packer.addUint16((int16_t)speed);
-    I2cSendData(131, packer.getData(), packer.getSize());
+int16_t asservissement_interface::get_max_speed_forward(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_max_speed_backward(int16_t speed){
-    DataPacker packer;
-    packer.addUint16((int16_t)speed);
-    I2cSendData(132, packer.getData(), packer.getSize());
+int16_t asservissement_interface::get_max_speed_backward(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_max_speed_trigo(int16_t speed){
-    DataPacker packer;
-    packer.addUint16((int16_t)speed);
-    I2cSendData(133, packer.getData(), packer.getSize());
+int16_t asservissement_interface::get_max_speed_trigo(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_max_speed_horloge(int16_t speed){
-    DataPacker packer;
-    packer.addUint16((int16_t)speed);
-    I2cSendData(134, packer.getData(), packer.getSize());
+int16_t asservissement_interface::get_max_speed_horloge(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(52, data, length);
+    DataUnpacker unpacker(data, length);
+    return (int16_t)unpacker.popUint16();
 }
 
 void asservissement_interface::get_pid_linear_static(int16_t &p, int16_t &i, int16_t &d){
@@ -381,6 +405,6 @@ void asservissement_interface::set_all_parameter(){
 // End auto generation CMD_FONCTION
 //***********************************************
 
-void get_current_target(){
+void asservissement_interface::get_current_target(){
 
 }

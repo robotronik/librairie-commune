@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_ROBOT_FUNCTION_INTERFACE
-// Last generation 2024-12-11 17:31:02: python3 autoGen.py
+// Last generation 2024-12-15 11:05:50: python3 autoGen.py
 // DO NOT EDIT
 void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
     uint8_t dataPack[64];
@@ -103,19 +103,27 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             break;
         }
         case 50:{
-            get_braking_distance();
+            int16_t retParam;
+            retParam = get_braking_distance();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 51:{
-            get_commande_buffer_size();
+            int16_t retParam;
+            retParam = get_commande_buffer_size();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 52:{
-            get_direction_side();
+            Direction retParam;
+            retParam = get_direction_side();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 53:{
-            get_rotation_side();
+            Rotation retParam;
+            retParam = get_rotation_side();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 54:{
@@ -130,29 +138,33 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             break;
         }
         case 55:{
-            get_moving_is_done();
+            bool retParam;
+            retParam = get_moving_is_done();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 56:{
-            get_running_is_done();
+            bool retParam;
+            retParam = get_running_is_done();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 57:{
-            get_turning_is_done();
+            bool retParam;
+            retParam = get_turning_is_done();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 58:{
-            int16_t error;
-            get_linear_error(error);
-            packer.addUint16((int16_t)error);
-            setReponseBuffer(packer.getData(),packer.getSize());
+            int16_t retParam;
+            retParam = get_linear_error();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 59:{
-            int16_t error;
-            get_angular_error(error);
-            packer.addUint16((int16_t)error);
-            setReponseBuffer(packer.getData(),packer.getSize());
+            int16_t retParam;
+            retParam = get_angular_error();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 60:{
@@ -266,33 +278,33 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             break;
         }
         case 130:{
-            int16_t max_torque;
-            max_torque = (int16_t)unPacker.popUint16();
-            get_max_torque(max_torque);
+            int16_t retParam;
+            retParam = get_max_torque();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 131:{
-            int16_t speed;
-            speed = (int16_t)unPacker.popUint16();
-            get_max_speed_forward(speed);
+            int16_t retParam;
+            retParam = get_max_speed_forward();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 132:{
-            int16_t speed;
-            speed = (int16_t)unPacker.popUint16();
-            get_max_speed_backward(speed);
+            int16_t retParam;
+            retParam = get_max_speed_backward();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 133:{
-            int16_t speed;
-            speed = (int16_t)unPacker.popUint16();
-            get_max_speed_trigo(speed);
+            int16_t retParam;
+            retParam = get_max_speed_trigo();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 134:{
-            int16_t speed;
-            speed = (int16_t)unPacker.popUint16();
-            get_max_speed_horloge(speed);
+            int16_t retParam;
+            retParam = get_max_speed_horloge();
+            packer.addUint16((int16_t)retParam);
             break;
         }
         case 135:{
