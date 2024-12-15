@@ -227,7 +227,7 @@ def create_doc_content(rows):
 
     lastCategory = ""
     number = 1
-    docContent.append(f"## Table of Contents\n")
+    docContent.append(f"## Table of focntions\n")
     for row in rows:
         category = row['category'].strip()
         if lastCategory != category:

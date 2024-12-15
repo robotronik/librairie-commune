@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2024-12-15 11:05:50: python3 autoGen.py
+// Last generation 2024-12-15 12:45:43: python3 autoGen.py
 // DO NOT EDIT
 void asservissement_interface::set_led_1(bool status){
     DataPacker packer;
@@ -86,6 +86,22 @@ void asservissement_interface::consigne_angulaire(int16_t x, int16_t y, Rotation
     packer.addUint16((int16_t)rotation);
     packer.addUint16((int16_t)direction);
     I2cSendData(36, packer.getData(), packer.getSize());
+}
+
+void asservissement_interface::set_linear_max_speed(int16_t max_speed, int16_t max_acceleration, int16_t max_deceleration){
+    DataPacker packer;
+    packer.addUint16((int16_t)max_speed);
+    packer.addUint16((int16_t)max_acceleration);
+    packer.addUint16((int16_t)max_deceleration);
+    I2cSendData(37, packer.getData(), packer.getSize());
+}
+
+void asservissement_interface::set_angular_max_speed(int16_t max_speed, int16_t max_acceleration, int16_t max_deceleration){
+    DataPacker packer;
+    packer.addUint16((int16_t)max_speed);
+    packer.addUint16((int16_t)max_acceleration);
+    packer.addUint16((int16_t)max_deceleration);
+    I2cSendData(38, packer.getData(), packer.getSize());
 }
 
 int16_t asservissement_interface::get_braking_distance(){
@@ -206,28 +222,26 @@ void asservissement_interface::set_max_torque(int16_t max_torque){
     I2cSendData(100, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_max_speed_forward(int16_t speed){
+void asservissement_interface::set_linear_position_control(int16_t max_speed_for, int16_t max_speed_back, int16_t max_acceleration_for, int16_t max_acceleration_back, int16_t max_deceleration_for, int16_t max_deceleration_back){
     DataPacker packer;
-    packer.addUint16((int16_t)speed);
+    packer.addUint16((int16_t)max_speed_for);
+    packer.addUint16((int16_t)max_speed_back);
+    packer.addUint16((int16_t)max_acceleration_for);
+    packer.addUint16((int16_t)max_acceleration_back);
+    packer.addUint16((int16_t)max_deceleration_for);
+    packer.addUint16((int16_t)max_deceleration_back);
     I2cSendData(101, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_max_speed_backward(int16_t speed){
+void asservissement_interface::set_angular_position_control(int16_t max_speed_clock, int16_t max_speed_anti, int16_t max_acceleration_clock, int16_t max_acceleration_anti, int16_t max_deceleration_clock, int16_t max_deceleration_anti){
     DataPacker packer;
-    packer.addUint16((int16_t)speed);
+    packer.addUint16((int16_t)max_speed_clock);
+    packer.addUint16((int16_t)max_speed_anti);
+    packer.addUint16((int16_t)max_acceleration_clock);
+    packer.addUint16((int16_t)max_acceleration_anti);
+    packer.addUint16((int16_t)max_deceleration_clock);
+    packer.addUint16((int16_t)max_deceleration_anti);
     I2cSendData(102, packer.getData(), packer.getSize());
-}
-
-void asservissement_interface::set_max_speed_trigo(int16_t speed){
-    DataPacker packer;
-    packer.addUint16((int16_t)speed);
-    I2cSendData(103, packer.getData(), packer.getSize());
-}
-
-void asservissement_interface::set_max_speed_horloge(int16_t speed){
-    DataPacker packer;
-    packer.addUint16((int16_t)speed);
-    I2cSendData(104, packer.getData(), packer.getSize());
 }
 
 void asservissement_interface::set_pid_linear_static(int16_t p, int16_t i, int16_t d){
@@ -235,7 +249,7 @@ void asservissement_interface::set_pid_linear_static(int16_t p, int16_t i, int16
     packer.addUint16((int16_t)p);
     packer.addUint16((int16_t)i);
     packer.addUint16((int16_t)d);
-    I2cSendData(105, packer.getData(), packer.getSize());
+    I2cSendData(103, packer.getData(), packer.getSize());
 }
 
 void asservissement_interface::set_pid_linear_dynamic(int16_t p, int16_t i, int16_t d){
@@ -243,7 +257,7 @@ void asservissement_interface::set_pid_linear_dynamic(int16_t p, int16_t i, int1
     packer.addUint16((int16_t)p);
     packer.addUint16((int16_t)i);
     packer.addUint16((int16_t)d);
-    I2cSendData(106, packer.getData(), packer.getSize());
+    I2cSendData(104, packer.getData(), packer.getSize());
 }
 
 void asservissement_interface::set_pid_angular_static(int16_t p, int16_t i, int16_t d){
@@ -251,7 +265,7 @@ void asservissement_interface::set_pid_angular_static(int16_t p, int16_t i, int1
     packer.addUint16((int16_t)p);
     packer.addUint16((int16_t)i);
     packer.addUint16((int16_t)d);
-    I2cSendData(107, packer.getData(), packer.getSize());
+    I2cSendData(105, packer.getData(), packer.getSize());
 }
 
 void asservissement_interface::set_pid_angular_dynamic(int16_t p, int16_t i, int16_t d){
@@ -259,7 +273,7 @@ void asservissement_interface::set_pid_angular_dynamic(int16_t p, int16_t i, int
     packer.addUint16((int16_t)p);
     packer.addUint16((int16_t)i);
     packer.addUint16((int16_t)d);
-    I2cSendData(108, packer.getData(), packer.getSize());
+    I2cSendData(106, packer.getData(), packer.getSize());
 }
 
 void asservissement_interface::set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRigth, int16_t spaceInterWheel){
@@ -267,7 +281,7 @@ void asservissement_interface::set_odometry_metric(int16_t sizeWheelLeft, int16_
     packer.addUint16((int16_t)sizeWheelLeft);
     packer.addUint16((int16_t)sizeWheelRigth);
     packer.addUint16((int16_t)spaceInterWheel);
-    I2cSendData(109, packer.getData(), packer.getSize());
+    I2cSendData(107, packer.getData(), packer.getSize());
 }
 
 int16_t asservissement_interface::get_max_torque(){
@@ -278,42 +292,36 @@ int16_t asservissement_interface::get_max_torque(){
     return (int16_t)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_max_speed_forward(){
-    uint8_t data[2];
-    int length = 2;
-    I2cReceiveData(52, data, length);
+void asservissement_interface::get_linear_position_control(int16_t &max_speed_for, int16_t &max_speed_back, int16_t &max_acceleration_for, int16_t &max_acceleration_back, int16_t &max_deceleration_for, int16_t &max_deceleration_back){
+    uint8_t data[12];
+    int length = 12;
+    I2cReceiveData(131, data, length);
     DataUnpacker unpacker(data, length);
-    return (int16_t)unpacker.popUint16();
+    max_speed_for = (int16_t)unpacker.popUint16();
+    max_speed_back = (int16_t)unpacker.popUint16();
+    max_acceleration_for = (int16_t)unpacker.popUint16();
+    max_acceleration_back = (int16_t)unpacker.popUint16();
+    max_deceleration_for = (int16_t)unpacker.popUint16();
+    max_deceleration_back = (int16_t)unpacker.popUint16();
 }
 
-int16_t asservissement_interface::get_max_speed_backward(){
-    uint8_t data[2];
-    int length = 2;
-    I2cReceiveData(52, data, length);
+void asservissement_interface::get_angular_position_control(int16_t &max_speed_clock, int16_t &max_speed_anti, int16_t &max_acceleration_clock, int16_t &max_acceleration_anti, int16_t &max_deceleration_clock, int16_t &max_deceleration_anti){
+    uint8_t data[12];
+    int length = 12;
+    I2cReceiveData(132, data, length);
     DataUnpacker unpacker(data, length);
-    return (int16_t)unpacker.popUint16();
-}
-
-int16_t asservissement_interface::get_max_speed_trigo(){
-    uint8_t data[2];
-    int length = 2;
-    I2cReceiveData(52, data, length);
-    DataUnpacker unpacker(data, length);
-    return (int16_t)unpacker.popUint16();
-}
-
-int16_t asservissement_interface::get_max_speed_horloge(){
-    uint8_t data[2];
-    int length = 2;
-    I2cReceiveData(52, data, length);
-    DataUnpacker unpacker(data, length);
-    return (int16_t)unpacker.popUint16();
+    max_speed_clock = (int16_t)unpacker.popUint16();
+    max_speed_anti = (int16_t)unpacker.popUint16();
+    max_acceleration_clock = (int16_t)unpacker.popUint16();
+    max_acceleration_anti = (int16_t)unpacker.popUint16();
+    max_deceleration_clock = (int16_t)unpacker.popUint16();
+    max_deceleration_anti = (int16_t)unpacker.popUint16();
 }
 
 void asservissement_interface::get_pid_linear_static(int16_t &p, int16_t &i, int16_t &d){
     uint8_t data[6];
     int length = 6;
-    I2cReceiveData(135, data, length);
+    I2cReceiveData(133, data, length);
     DataUnpacker unpacker(data, length);
     p = (int16_t)unpacker.popUint16();
     i = (int16_t)unpacker.popUint16();
@@ -323,7 +331,7 @@ void asservissement_interface::get_pid_linear_static(int16_t &p, int16_t &i, int
 void asservissement_interface::get_pid_linear_dynamic(int16_t &p, int16_t &i, int16_t &d){
     uint8_t data[6];
     int length = 6;
-    I2cReceiveData(136, data, length);
+    I2cReceiveData(134, data, length);
     DataUnpacker unpacker(data, length);
     p = (int16_t)unpacker.popUint16();
     i = (int16_t)unpacker.popUint16();
@@ -333,7 +341,7 @@ void asservissement_interface::get_pid_linear_dynamic(int16_t &p, int16_t &i, in
 void asservissement_interface::get_pid_angular_static(int16_t &p, int16_t &i, int16_t &d){
     uint8_t data[6];
     int length = 6;
-    I2cReceiveData(137, data, length);
+    I2cReceiveData(135, data, length);
     DataUnpacker unpacker(data, length);
     p = (int16_t)unpacker.popUint16();
     i = (int16_t)unpacker.popUint16();
@@ -343,7 +351,7 @@ void asservissement_interface::get_pid_angular_static(int16_t &p, int16_t &i, in
 void asservissement_interface::get_pid_angular_dynamic(int16_t &p, int16_t &i, int16_t &d){
     uint8_t data[6];
     int length = 6;
-    I2cReceiveData(138, data, length);
+    I2cReceiveData(136, data, length);
     DataUnpacker unpacker(data, length);
     p = (int16_t)unpacker.popUint16();
     i = (int16_t)unpacker.popUint16();
@@ -353,7 +361,7 @@ void asservissement_interface::get_pid_angular_dynamic(int16_t &p, int16_t &i, i
 void asservissement_interface::get_odometry_metric(int16_t &sizeWheelLeft, int16_t &sizeWheelRigth, int16_t &spaceInterWheel){
     uint8_t data[6];
     int length = 6;
-    I2cReceiveData(139, data, length);
+    I2cReceiveData(137, data, length);
     DataUnpacker unpacker(data, length);
     sizeWheelLeft = (int16_t)unpacker.popUint16();
     sizeWheelRigth = (int16_t)unpacker.popUint16();

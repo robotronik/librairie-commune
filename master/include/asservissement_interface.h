@@ -11,7 +11,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_HEADER
-// Last generation 2024-12-15 11:05:50: python3 autoGen.py
+// Last generation 2024-12-15 12:45:43: python3 autoGen.py
 // DO NOT EDIT
 public:
     void set_led_1(bool status);
@@ -25,6 +25,8 @@ public:
     void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond);
     void consigne_angulaire(int16_t angle, Rotation rotation = Rotation::SHORTEST);
     void consigne_angulaire(int16_t x, int16_t y, Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD);
+    void set_linear_max_speed(int16_t max_speed, int16_t max_acceleration = 0, int16_t max_deceleration = 0);
+    void set_angular_max_speed(int16_t max_speed, int16_t max_acceleration = 0, int16_t max_deceleration = 0);
     int16_t get_braking_distance();
     int16_t get_commande_buffer_size();
     Direction get_direction_side();
@@ -40,20 +42,16 @@ public:
     void set_motor_state(bool motorEnable);
     void set_brake_state(bool brakeEnable);
     void set_max_torque(int16_t max_torque);
-    void set_max_speed_forward(int16_t speed);
-    void set_max_speed_backward(int16_t speed);
-    void set_max_speed_trigo(int16_t speed);
-    void set_max_speed_horloge(int16_t speed);
+    void set_linear_position_control(int16_t max_speed_for, int16_t max_speed_back, int16_t max_acceleration_for, int16_t max_acceleration_back, int16_t max_deceleration_for, int16_t max_deceleration_back);
+    void set_angular_position_control(int16_t max_speed_clock, int16_t max_speed_anti, int16_t max_acceleration_clock, int16_t max_acceleration_anti, int16_t max_deceleration_clock, int16_t max_deceleration_anti);
     void set_pid_linear_static(int16_t p, int16_t i, int16_t d);
     void set_pid_linear_dynamic(int16_t p, int16_t i, int16_t d);
     void set_pid_angular_static(int16_t p, int16_t i, int16_t d);
     void set_pid_angular_dynamic(int16_t p, int16_t i, int16_t d);
     void set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRigth, int16_t spaceInterWheel);
     int16_t get_max_torque();
-    int16_t get_max_speed_forward();
-    int16_t get_max_speed_backward();
-    int16_t get_max_speed_trigo();
-    int16_t get_max_speed_horloge();
+    void get_linear_position_control(int16_t &max_speed_for, int16_t &max_speed_back, int16_t &max_acceleration_for, int16_t &max_acceleration_back, int16_t &max_deceleration_for, int16_t &max_deceleration_back);
+    void get_angular_position_control(int16_t &max_speed_clock, int16_t &max_speed_anti, int16_t &max_acceleration_clock, int16_t &max_acceleration_anti, int16_t &max_deceleration_clock, int16_t &max_deceleration_anti);
     void get_pid_linear_static(int16_t &p, int16_t &i, int16_t &d);
     void get_pid_linear_dynamic(int16_t &p, int16_t &i, int16_t &d);
     void get_pid_angular_static(int16_t &p, int16_t &i, int16_t &d);

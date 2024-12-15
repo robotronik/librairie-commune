@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_ROBOT_FUNCTION_INTERFACE
-// Last generation 2024-12-15 11:05:50: python3 autoGen.py
+// Last generation 2024-12-15 12:45:43: python3 autoGen.py
 // DO NOT EDIT
 void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
     uint8_t dataPack[64];
@@ -100,6 +100,26 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             rotation = (Rotation)unPacker.popUint16();
             direction = (Direction)unPacker.popUint16();
             consigne_angulaire(x, y, rotation, direction);
+            break;
+        }
+        case 37:{
+            int16_t max_speed;
+            int16_t max_acceleration;
+            int16_t max_deceleration;
+            max_speed = (int16_t)unPacker.popUint16();
+            max_acceleration = (int16_t)unPacker.popUint16();
+            max_deceleration = (int16_t)unPacker.popUint16();
+            set_linear_max_speed(max_speed, max_acceleration, max_deceleration);
+            break;
+        }
+        case 38:{
+            int16_t max_speed;
+            int16_t max_acceleration;
+            int16_t max_deceleration;
+            max_speed = (int16_t)unPacker.popUint16();
+            max_acceleration = (int16_t)unPacker.popUint16();
+            max_deceleration = (int16_t)unPacker.popUint16();
+            set_angular_max_speed(max_speed, max_acceleration, max_deceleration);
             break;
         }
         case 50:{
@@ -204,30 +224,38 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             break;
         }
         case 101:{
-            int16_t speed;
-            speed = (int16_t)unPacker.popUint16();
-            set_max_speed_forward(speed);
+            int16_t max_speed_for;
+            int16_t max_speed_back;
+            int16_t max_acceleration_for;
+            int16_t max_acceleration_back;
+            int16_t max_deceleration_for;
+            int16_t max_deceleration_back;
+            max_speed_for = (int16_t)unPacker.popUint16();
+            max_speed_back = (int16_t)unPacker.popUint16();
+            max_acceleration_for = (int16_t)unPacker.popUint16();
+            max_acceleration_back = (int16_t)unPacker.popUint16();
+            max_deceleration_for = (int16_t)unPacker.popUint16();
+            max_deceleration_back = (int16_t)unPacker.popUint16();
+            set_linear_position_control(max_speed_for, max_speed_back, max_acceleration_for, max_acceleration_back, max_deceleration_for, max_deceleration_back);
             break;
         }
         case 102:{
-            int16_t speed;
-            speed = (int16_t)unPacker.popUint16();
-            set_max_speed_backward(speed);
+            int16_t max_speed_clock;
+            int16_t max_speed_anti;
+            int16_t max_acceleration_clock;
+            int16_t max_acceleration_anti;
+            int16_t max_deceleration_clock;
+            int16_t max_deceleration_anti;
+            max_speed_clock = (int16_t)unPacker.popUint16();
+            max_speed_anti = (int16_t)unPacker.popUint16();
+            max_acceleration_clock = (int16_t)unPacker.popUint16();
+            max_acceleration_anti = (int16_t)unPacker.popUint16();
+            max_deceleration_clock = (int16_t)unPacker.popUint16();
+            max_deceleration_anti = (int16_t)unPacker.popUint16();
+            set_angular_position_control(max_speed_clock, max_speed_anti, max_acceleration_clock, max_acceleration_anti, max_deceleration_clock, max_deceleration_anti);
             break;
         }
         case 103:{
-            int16_t speed;
-            speed = (int16_t)unPacker.popUint16();
-            set_max_speed_trigo(speed);
-            break;
-        }
-        case 104:{
-            int16_t speed;
-            speed = (int16_t)unPacker.popUint16();
-            set_max_speed_horloge(speed);
-            break;
-        }
-        case 105:{
             int16_t p;
             int16_t i;
             int16_t d;
@@ -237,7 +265,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             set_pid_linear_static(p, i, d);
             break;
         }
-        case 106:{
+        case 104:{
             int16_t p;
             int16_t i;
             int16_t d;
@@ -247,7 +275,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             set_pid_linear_dynamic(p, i, d);
             break;
         }
-        case 107:{
+        case 105:{
             int16_t p;
             int16_t i;
             int16_t d;
@@ -257,7 +285,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             set_pid_angular_static(p, i, d);
             break;
         }
-        case 108:{
+        case 106:{
             int16_t p;
             int16_t i;
             int16_t d;
@@ -267,7 +295,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             set_pid_angular_dynamic(p, i, d);
             break;
         }
-        case 109:{
+        case 107:{
             int16_t sizeWheelLeft;
             int16_t sizeWheelRigth;
             int16_t spaceInterWheel;
@@ -284,30 +312,40 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             break;
         }
         case 131:{
-            int16_t retParam;
-            retParam = get_max_speed_forward();
-            packer.addUint16((int16_t)retParam);
+            int16_t max_speed_for;
+            int16_t max_speed_back;
+            int16_t max_acceleration_for;
+            int16_t max_acceleration_back;
+            int16_t max_deceleration_for;
+            int16_t max_deceleration_back;
+            get_linear_position_control(max_speed_for, max_speed_back, max_acceleration_for, max_acceleration_back, max_deceleration_for, max_deceleration_back);
+            packer.addUint16((int16_t)max_speed_for);
+            packer.addUint16((int16_t)max_speed_back);
+            packer.addUint16((int16_t)max_acceleration_for);
+            packer.addUint16((int16_t)max_acceleration_back);
+            packer.addUint16((int16_t)max_deceleration_for);
+            packer.addUint16((int16_t)max_deceleration_back);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 132:{
-            int16_t retParam;
-            retParam = get_max_speed_backward();
-            packer.addUint16((int16_t)retParam);
+            int16_t max_speed_clock;
+            int16_t max_speed_anti;
+            int16_t max_acceleration_clock;
+            int16_t max_acceleration_anti;
+            int16_t max_deceleration_clock;
+            int16_t max_deceleration_anti;
+            get_angular_position_control(max_speed_clock, max_speed_anti, max_acceleration_clock, max_acceleration_anti, max_deceleration_clock, max_deceleration_anti);
+            packer.addUint16((int16_t)max_speed_clock);
+            packer.addUint16((int16_t)max_speed_anti);
+            packer.addUint16((int16_t)max_acceleration_clock);
+            packer.addUint16((int16_t)max_acceleration_anti);
+            packer.addUint16((int16_t)max_deceleration_clock);
+            packer.addUint16((int16_t)max_deceleration_anti);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 133:{
-            int16_t retParam;
-            retParam = get_max_speed_trigo();
-            packer.addUint16((int16_t)retParam);
-            break;
-        }
-        case 134:{
-            int16_t retParam;
-            retParam = get_max_speed_horloge();
-            packer.addUint16((int16_t)retParam);
-            break;
-        }
-        case 135:{
             int16_t p;
             int16_t i;
             int16_t d;
@@ -318,7 +356,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
-        case 136:{
+        case 134:{
             int16_t p;
             int16_t i;
             int16_t d;
@@ -329,7 +367,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
-        case 137:{
+        case 135:{
             int16_t p;
             int16_t i;
             int16_t d;
@@ -340,7 +378,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
-        case 138:{
+        case 136:{
             int16_t p;
             int16_t i;
             int16_t d;
@@ -351,7 +389,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
-        case 139:{
+        case 137:{
             int16_t sizeWheelLeft;
             int16_t sizeWheelRigth;
             int16_t spaceInterWheel;

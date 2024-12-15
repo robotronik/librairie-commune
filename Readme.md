@@ -1,14 +1,109 @@
 # Robot Command API Documentation
 
 ## Introduction
-This document provides a comprehensive overview of the available commands in the Robot Command API. Each function is detailed with its purpose, parameters, and usage.
+This document provides a comprehensive overview of the interface between the asservissement program in the STM32 and the robot's global program. This interface offers lot of functions to control the robot, which are grouped into different categories.
 
+A significant portion of the interface is automatically generated from a CSV file, which also includes part of this documentation.
+
+The beginning of this document explains general information about the interface, followed by detailed descriptions of each function with its purpose, parameters, and usage.
+
+## Global information
+
+### Categories
+
+| Category      | usage      |
+|------------|----------------|
+| LED | Use to debug |
+| COORDINATE | get or set coordinate (set coordinate when the robot is stop) |
+| COMMANDE | Send all commands to move the robot from a point A to B. You can send utils 1000 basic commande in one time and the robot will execute all commande successively. The buffer size tells you how many commands the robot still has to execute. |
+| STATUS | Give all status robot |
+| MOTOR | Instante commande apply to motor. Use only for emerengcy or the robot start or stop |
+| PARAMETER | maximum static parameter (don't change during the match) |
+| CALIBRATION | TODO use to calibrate the odometrie (don't change during the match) |
+| OPTIMIZATION | TODO |
+
+### exemple
+
+This is a small example of a move with a collect and an avoid action in 2-step (wait 5 seconds if the opposing robot leaves, otherwise abandon the action)
+
+```C++
+robot.set_motor_state(true);        //enable the motor if not
+robot.set_coordinates(0,0,90);      //set the coordinate if differente of 0
+robot.go_to_point(500,500);
+robot.go_to_point(1000,500);
+robot.go_to_point(1000,1000);
+robot.set_linear_max_speed(20);     //go slowly for the next action
+robot.go_to_point(1000,1300);       //action like clolect something
+robot.set_linear_max_speed(0);      //reset slowly speed with default value
+
+while(robot.get_commande_buffer_size() != 0) //wait end of all action above
+{
+    if(robot.get_direction_side() == Direction::FORWARD){
+        if(robot.get_braking_distance() > lidar.collideDistanceFORWARD()){ //stop befor collide the opponent
+            if(robotIsStall == false){ //to send only one time pause commande
+                robot.pause();
+                robotIsStall = true;
+            }
+            if(WAIT_5S_BEFORE_TO_FIND_A_NEW_PATH_OR_AN_OTHER_ACTION){
+                robot.stop(); //to reset the commande buffer and delete all commande not yet execute
+                break;
+            }
+        }
+        else{
+            if(robotIsStall == true){ //to send only one time resume
+                robot.resume();
+                robotIsStall = false;
+            }
+        }
+    }
+    else if(robot.get_direction_side() == Direction::BACKWARD){
+        if(robot.get_braking_distance > lidar.collideDistanceBACKWARD())
+        // ....
+    }
+}
+
+```
+### Enum
+list of enum type use in the interface
+```C++
+enum class Rotation {
+    NONE = 0,
+    SHORTEST = 1,
+    ANTICLOCKWISE = 2,
+    CLOCKWISE = 3
+};
+```
+```C++
+enum class Direction {
+    NONE = 0,
+    FORWARD = 1,
+    BACKWARD = 2
+};
+```
+### Units
+
+| type      | unit      |
+|------------|----------------|
+| linear position    | mm    |
+| angular position    | degres    |
+| linear speed    | mm/s    |
+| angular speed    | degres/s    |
+| linear acceleration/decelaration   | mm/s²    |
+| angular acceleration/decelaration   | degres/s²    |
+| torque   | TODO    |
+| current   | TODO    |
+
+### Regernerate contente
+Part of files are auto generate depending of the csv file commands.csv. Use autoGen.py to regenerate the content.
+```bash
+python3 autoGen.py
+```
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2024-12-15 11:05:50: python3 autoGen.py -->
+<!-- Last generation 2024-12-15 13:52:22: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
-## Table of Contents
+## Table of focntions
 1. [LED](#LED)
 2. [COORDINATE](#COORDINATE)
 3. [COMMANDE](#COMMANDE)
@@ -148,6 +243,32 @@ This document provides a comprehensive overview of the available commands in the
 
 ---
 
+#### set_linear_max_speed
+**Return**: void  
+**Parameters**:  
+- `int16_t max_speed`  
+- ` int16_t max_acceleration = 0`  
+- ` int16_t max_deceleration = 0`  
+
+**Description**: set max speed for nexts commands. Use a value of 0 to reset with the max value set in parameter  
+**Usage**: limit speed for an action  
+
+
+---
+
+#### set_angular_max_speed
+**Return**: void  
+**Parameters**:  
+- `int16_t max_speed`  
+- ` int16_t max_acceleration = 0`  
+- ` int16_t max_deceleration = 0`  
+
+**Description**: set max speed for nexts commands. Use a value of 0 to reset with the max value set in parameter  
+**Usage**: limit speed for an action  
+
+
+---
+
 ## 4. STATUS
 
 #### get_braking_distance
@@ -177,7 +298,7 @@ This document provides a comprehensive overview of the available commands in the
 - `Direction`  
 
 **Parameters**: void  
-**Description**: give the direction (NONE when the robot don't move backward or forward)  
+**Description**: give the direction (NONE when the robot don't move backward or forward). When the robot is paused, it continues to give the direction it should go when resuming  
 **Usage**: usefull to dermine wich side of the lidar point is usefull to look when you want avoid the opponent robot  
 
 
@@ -188,7 +309,7 @@ This document provides a comprehensive overview of the available commands in the
 - `Rotation`  
 
 **Parameters**: void  
-**Description**: give the rotation  
+**Description**: give the rotation. When the robot is paused, it continues to give the rotation it should go when resuming  
 
 
 ---
@@ -323,10 +444,15 @@ This document provides a comprehensive overview of the available commands in the
 
 ---
 
-#### set_max_speed_forward
+#### set_linear_position_control
 **Return**: void  
 **Parameters**:  
-- `int16_t speed`  
+- `int16_t max_speed_for`  
+- ` int16_t max_speed_back`  
+- ` int16_t max_acceleration_for`  
+- ` int16_t max_acceleration_back`  
+- ` int16_t max_deceleration_for`  
+- ` int16_t max_deceleration_back`  
 
 **Description**: set max speed forward  
 **Usage**: constant  
@@ -334,34 +460,17 @@ This document provides a comprehensive overview of the available commands in the
 
 ---
 
-#### set_max_speed_backward
+#### set_angular_position_control
 **Return**: void  
 **Parameters**:  
-- `int16_t speed`  
+- `int16_t max_speed_clock`  
+- ` int16_t max_speed_anti`  
+- ` int16_t max_acceleration_clock`  
+- ` int16_t max_acceleration_anti`  
+- ` int16_t max_deceleration_clock`  
+- ` int16_t max_deceleration_anti`  
 
-**Description**: set max speed backward  
-**Usage**: constant  
-
-
----
-
-#### set_max_speed_trigo
-**Return**: void  
-**Parameters**:  
-- `int16_t speed`  
-
-**Description**: set max speed anticlockwise  
-**Usage**: constant  
-
-
----
-
-#### set_max_speed_horloge
-**Return**: void  
-**Parameters**:  
-- `int16_t speed`  
-
-**Description**: set max speed clockwise  
+**Description**: set max speed forward  
 **Usage**: constant  
 
 
@@ -443,45 +552,33 @@ This document provides a comprehensive overview of the available commands in the
 
 ---
 
-#### get_max_speed_forward
-**Return**:  
-- `int16_t`  
+#### get_linear_position_control
+**Return**: void  
+**Parameters**:  
+- `int16_t &max_speed_for`  
+- ` int16_t &max_speed_back`  
+- ` int16_t &max_acceleration_for`  
+- ` int16_t &max_acceleration_back`  
+- ` int16_t &max_deceleration_for`  
+- ` int16_t &max_deceleration_back`  
 
-**Parameters**: void  
-**Description**: get max speed forward  
+**Description**: set max speed forward  
 **Usage**: constant  
 
 
 ---
 
-#### get_max_speed_backward
-**Return**:  
-- `int16_t`  
+#### get_angular_position_control
+**Return**: void  
+**Parameters**:  
+- `int16_t &max_speed_clock`  
+- ` int16_t &max_speed_anti`  
+- ` int16_t &max_acceleration_clock`  
+- ` int16_t &max_acceleration_anti`  
+- ` int16_t &max_deceleration_clock`  
+- ` int16_t &max_deceleration_anti`  
 
-**Parameters**: void  
-**Description**: get max speed backward  
-**Usage**: constant  
-
-
----
-
-#### get_max_speed_trigo
-**Return**:  
-- `int16_t`  
-
-**Parameters**: void  
-**Description**: get max speed anticlockwise  
-**Usage**: constant  
-
-
----
-
-#### get_max_speed_horloge
-**Return**:  
-- `int16_t`  
-
-**Parameters**: void  
-**Description**: get max speed clockwise  
+**Description**: set max speed forward  
 **Usage**: constant  
 
 

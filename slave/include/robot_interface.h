@@ -12,7 +12,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_ROBOT_INTERFACE
-// Last generation 2024-12-15 11:05:50: python3 autoGen.py
+// Last generation 2024-12-15 12:45:43: python3 autoGen.py
 // DO NOT EDIT
 private:
     virtual void set_led_1(bool status) = 0;
@@ -26,6 +26,8 @@ private:
     virtual void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond) = 0;
     virtual void consigne_angulaire(int16_t angle, Rotation rotation = Rotation::SHORTEST) = 0;
     virtual void consigne_angulaire(int16_t x, int16_t y, Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD) = 0;
+    virtual void set_linear_max_speed(int16_t max_speed, int16_t max_acceleration = 0, int16_t max_deceleration = 0) = 0;
+    virtual void set_angular_max_speed(int16_t max_speed, int16_t max_acceleration = 0, int16_t max_deceleration = 0) = 0;
     virtual int16_t get_braking_distance() = 0;
     virtual int16_t get_commande_buffer_size() = 0;
     virtual Direction get_direction_side() = 0;
@@ -41,20 +43,16 @@ private:
     virtual void set_motor_state(bool motorEnable) = 0;
     virtual void set_brake_state(bool brakeEnable) = 0;
     virtual void set_max_torque(int16_t max_torque) = 0;
-    virtual void set_max_speed_forward(int16_t speed) = 0;
-    virtual void set_max_speed_backward(int16_t speed) = 0;
-    virtual void set_max_speed_trigo(int16_t speed) = 0;
-    virtual void set_max_speed_horloge(int16_t speed) = 0;
+    virtual void set_linear_position_control(int16_t max_speed_for, int16_t max_speed_back, int16_t max_acceleration_for, int16_t max_acceleration_back, int16_t max_deceleration_for, int16_t max_deceleration_back) = 0;
+    virtual void set_angular_position_control(int16_t max_speed_clock, int16_t max_speed_anti, int16_t max_acceleration_clock, int16_t max_acceleration_anti, int16_t max_deceleration_clock, int16_t max_deceleration_anti) = 0;
     virtual void set_pid_linear_static(int16_t p, int16_t i, int16_t d) = 0;
     virtual void set_pid_linear_dynamic(int16_t p, int16_t i, int16_t d) = 0;
     virtual void set_pid_angular_static(int16_t p, int16_t i, int16_t d) = 0;
     virtual void set_pid_angular_dynamic(int16_t p, int16_t i, int16_t d) = 0;
     virtual void set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRigth, int16_t spaceInterWheel) = 0;
     virtual int16_t get_max_torque() = 0;
-    virtual int16_t get_max_speed_forward() = 0;
-    virtual int16_t get_max_speed_backward() = 0;
-    virtual int16_t get_max_speed_trigo() = 0;
-    virtual int16_t get_max_speed_horloge() = 0;
+    virtual void get_linear_position_control(int16_t &max_speed_for, int16_t &max_speed_back, int16_t &max_acceleration_for, int16_t &max_acceleration_back, int16_t &max_deceleration_for, int16_t &max_deceleration_back) = 0;
+    virtual void get_angular_position_control(int16_t &max_speed_clock, int16_t &max_speed_anti, int16_t &max_acceleration_clock, int16_t &max_acceleration_anti, int16_t &max_deceleration_clock, int16_t &max_deceleration_anti) = 0;
     virtual void get_pid_linear_static(int16_t &p, int16_t &i, int16_t &d) = 0;
     virtual void get_pid_linear_dynamic(int16_t &p, int16_t &i, int16_t &d) = 0;
     virtual void get_pid_angular_static(int16_t &p, int16_t &i, int16_t &d) = 0;
