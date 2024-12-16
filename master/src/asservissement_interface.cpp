@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2024-12-15 13:59:15: python3 autoGen.py
+// Last generation 2024-12-16 18:59:28: python3 autoGen.py
 // DO NOT EDIT
 void asservissement_interface::set_led_1(bool status){
     DataPacker packer;
@@ -186,21 +186,21 @@ int16_t asservissement_interface::get_angular_error(){
     return (int16_t)unpacker.popUint16();
 }
 
-void asservissement_interface::get_current(int16_t &currentRigth, int16_t &currentLeft){
+void asservissement_interface::get_current(int16_t &currentRight, int16_t &currentLeft){
     uint8_t data[4];
     int length = 4;
     I2cReceiveData(60, data, length);
     DataUnpacker unpacker(data, length);
-    currentRigth = (int16_t)unpacker.popUint16();
+    currentRight = (int16_t)unpacker.popUint16();
     currentLeft = (int16_t)unpacker.popUint16();
 }
 
-void asservissement_interface::get_speed(int16_t &speedRigth, int16_t &speedLeft){
+void asservissement_interface::get_speed(int16_t &speedRight, int16_t &speedLeft){
     uint8_t data[4];
     int length = 4;
     I2cReceiveData(61, data, length);
     DataUnpacker unpacker(data, length);
-    speedRigth = (int16_t)unpacker.popUint16();
+    speedRight = (int16_t)unpacker.popUint16();
     speedLeft = (int16_t)unpacker.popUint16();
 }
 
@@ -276,10 +276,10 @@ void asservissement_interface::set_pid_angular_dynamic(int16_t p, int16_t i, int
     I2cSendData(106, packer.getData(), packer.getSize());
 }
 
-void asservissement_interface::set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRigth, int16_t spaceInterWheel){
+void asservissement_interface::set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRight, int16_t spaceInterWheel){
     DataPacker packer;
     packer.addUint16((int16_t)sizeWheelLeft);
-    packer.addUint16((int16_t)sizeWheelRigth);
+    packer.addUint16((int16_t)sizeWheelRight);
     packer.addUint16((int16_t)spaceInterWheel);
     I2cSendData(107, packer.getData(), packer.getSize());
 }
@@ -358,13 +358,13 @@ void asservissement_interface::get_pid_angular_dynamic(int16_t &p, int16_t &i, i
     d = (int16_t)unpacker.popUint16();
 }
 
-void asservissement_interface::get_odometry_metric(int16_t &sizeWheelLeft, int16_t &sizeWheelRigth, int16_t &spaceInterWheel){
+void asservissement_interface::get_odometry_metric(int16_t &sizeWheelLeft, int16_t &sizeWheelRight, int16_t &spaceInterWheel){
     uint8_t data[6];
     int length = 6;
     I2cReceiveData(137, data, length);
     DataUnpacker unpacker(data, length);
     sizeWheelLeft = (int16_t)unpacker.popUint16();
-    sizeWheelRigth = (int16_t)unpacker.popUint16();
+    sizeWheelRight = (int16_t)unpacker.popUint16();
     spaceInterWheel = (int16_t)unpacker.popUint16();
 }
 

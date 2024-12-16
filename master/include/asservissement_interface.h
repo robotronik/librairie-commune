@@ -11,7 +11,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_HEADER
-// Last generation 2024-12-15 13:59:15: python3 autoGen.py
+// Last generation 2024-12-16 18:59:28: python3 autoGen.py
 // DO NOT EDIT
 public:
     void set_led_1(bool status);
@@ -37,8 +37,8 @@ public:
     bool get_turning_is_done();
     int16_t get_linear_error();
     int16_t get_angular_error();
-    void get_current(int16_t &currentRigth, int16_t &currentLeft);
-    void get_speed(int16_t &speedRigth, int16_t &speedLeft);
+    void get_current(int16_t &currentRight, int16_t &currentLeft);
+    void get_speed(int16_t &speedRight, int16_t &speedLeft);
     void set_motor_state(bool motorEnable);
     void set_brake_state(bool brakeEnable);
     void set_max_torque(int16_t max_torque);
@@ -48,7 +48,7 @@ public:
     void set_pid_linear_dynamic(int16_t p, int16_t i, int16_t d);
     void set_pid_angular_static(int16_t p, int16_t i, int16_t d);
     void set_pid_angular_dynamic(int16_t p, int16_t i, int16_t d);
-    void set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRigth, int16_t spaceInterWheel);
+    void set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRight, int16_t spaceInterWheel);
     int16_t get_max_torque();
     void get_linear_position_control(int16_t &max_speed_for, int16_t &max_speed_back, int16_t &max_acceleration_for, int16_t &max_acceleration_back, int16_t &max_deceleration_for, int16_t &max_deceleration_back);
     void get_angular_position_control(int16_t &max_speed_clock, int16_t &max_speed_anti, int16_t &max_acceleration_clock, int16_t &max_acceleration_anti, int16_t &max_deceleration_clock, int16_t &max_deceleration_anti);
@@ -56,7 +56,7 @@ public:
     void get_pid_linear_dynamic(int16_t &p, int16_t &i, int16_t &d);
     void get_pid_angular_static(int16_t &p, int16_t &i, int16_t &d);
     void get_pid_angular_dynamic(int16_t &p, int16_t &i, int16_t &d);
-    void get_odometry_metric(int16_t &sizeWheelLeft, int16_t &sizeWheelRigth, int16_t &spaceInterWheel);
+    void get_odometry_metric(int16_t &sizeWheelLeft, int16_t &sizeWheelRight, int16_t &spaceInterWheel);
     void start_calibration();
     void end_calibration();
     void get_status_calibration();

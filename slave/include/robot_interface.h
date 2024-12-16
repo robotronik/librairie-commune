@@ -12,7 +12,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_ROBOT_INTERFACE
-// Last generation 2024-12-15 13:59:15: python3 autoGen.py
+// Last generation 2024-12-16 18:59:28: python3 autoGen.py
 // DO NOT EDIT
 private:
     virtual void set_led_1(bool status) = 0;
@@ -38,8 +38,8 @@ private:
     virtual bool get_turning_is_done() = 0;
     virtual int16_t get_linear_error() = 0;
     virtual int16_t get_angular_error() = 0;
-    virtual void get_current(int16_t &currentRigth, int16_t &currentLeft) = 0;
-    virtual void get_speed(int16_t &speedRigth, int16_t &speedLeft) = 0;
+    virtual void get_current(int16_t &currentRight, int16_t &currentLeft) = 0;
+    virtual void get_speed(int16_t &speedRight, int16_t &speedLeft) = 0;
     virtual void set_motor_state(bool motorEnable) = 0;
     virtual void set_brake_state(bool brakeEnable) = 0;
     virtual void set_max_torque(int16_t max_torque) = 0;
@@ -49,7 +49,7 @@ private:
     virtual void set_pid_linear_dynamic(int16_t p, int16_t i, int16_t d) = 0;
     virtual void set_pid_angular_static(int16_t p, int16_t i, int16_t d) = 0;
     virtual void set_pid_angular_dynamic(int16_t p, int16_t i, int16_t d) = 0;
-    virtual void set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRigth, int16_t spaceInterWheel) = 0;
+    virtual void set_odometry_metric(int16_t sizeWheelLeft, int16_t sizeWheelRight, int16_t spaceInterWheel) = 0;
     virtual int16_t get_max_torque() = 0;
     virtual void get_linear_position_control(int16_t &max_speed_for, int16_t &max_speed_back, int16_t &max_acceleration_for, int16_t &max_acceleration_back, int16_t &max_deceleration_for, int16_t &max_deceleration_back) = 0;
     virtual void get_angular_position_control(int16_t &max_speed_clock, int16_t &max_speed_anti, int16_t &max_acceleration_clock, int16_t &max_acceleration_anti, int16_t &max_deceleration_clock, int16_t &max_deceleration_anti) = 0;
@@ -57,7 +57,7 @@ private:
     virtual void get_pid_linear_dynamic(int16_t &p, int16_t &i, int16_t &d) = 0;
     virtual void get_pid_angular_static(int16_t &p, int16_t &i, int16_t &d) = 0;
     virtual void get_pid_angular_dynamic(int16_t &p, int16_t &i, int16_t &d) = 0;
-    virtual void get_odometry_metric(int16_t &sizeWheelLeft, int16_t &sizeWheelRigth, int16_t &spaceInterWheel) = 0;
+    virtual void get_odometry_metric(int16_t &sizeWheelLeft, int16_t &sizeWheelRight, int16_t &spaceInterWheel) = 0;
     virtual void start_calibration() = 0;
     virtual void end_calibration() = 0;
     virtual void get_status_calibration() = 0;

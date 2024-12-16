@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_ROBOT_FUNCTION_INTERFACE
-// Last generation 2024-12-15 13:59:15: python3 autoGen.py
+// Last generation 2024-12-16 18:59:28: python3 autoGen.py
 // DO NOT EDIT
 void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
     uint8_t dataPack[64];
@@ -188,19 +188,19 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             break;
         }
         case 60:{
-            int16_t currentRigth;
+            int16_t currentRight;
             int16_t currentLeft;
-            get_current(currentRigth, currentLeft);
-            packer.addUint16((int16_t)currentRigth);
+            get_current(currentRight, currentLeft);
+            packer.addUint16((int16_t)currentRight);
             packer.addUint16((int16_t)currentLeft);
             setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 61:{
-            int16_t speedRigth;
+            int16_t speedRight;
             int16_t speedLeft;
-            get_speed(speedRigth, speedLeft);
-            packer.addUint16((int16_t)speedRigth);
+            get_speed(speedRight, speedLeft);
+            packer.addUint16((int16_t)speedRight);
             packer.addUint16((int16_t)speedLeft);
             setReponseBuffer(packer.getData(),packer.getSize());
             break;
@@ -297,12 +297,12 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
         }
         case 107:{
             int16_t sizeWheelLeft;
-            int16_t sizeWheelRigth;
+            int16_t sizeWheelRight;
             int16_t spaceInterWheel;
             sizeWheelLeft = (int16_t)unPacker.popUint16();
-            sizeWheelRigth = (int16_t)unPacker.popUint16();
+            sizeWheelRight = (int16_t)unPacker.popUint16();
             spaceInterWheel = (int16_t)unPacker.popUint16();
-            set_odometry_metric(sizeWheelLeft, sizeWheelRigth, spaceInterWheel);
+            set_odometry_metric(sizeWheelLeft, sizeWheelRight, spaceInterWheel);
             break;
         }
         case 130:{
@@ -391,11 +391,11 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
         }
         case 137:{
             int16_t sizeWheelLeft;
-            int16_t sizeWheelRigth;
+            int16_t sizeWheelRight;
             int16_t spaceInterWheel;
-            get_odometry_metric(sizeWheelLeft, sizeWheelRigth, spaceInterWheel);
+            get_odometry_metric(sizeWheelLeft, sizeWheelRight, spaceInterWheel);
             packer.addUint16((int16_t)sizeWheelLeft);
-            packer.addUint16((int16_t)sizeWheelRigth);
+            packer.addUint16((int16_t)sizeWheelRight);
             packer.addUint16((int16_t)spaceInterWheel);
             setReponseBuffer(packer.getData(),packer.getSize());
             break;

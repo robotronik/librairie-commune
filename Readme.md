@@ -101,7 +101,7 @@ python3 autoGen.py
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2024-12-15 13:59:15: python3 autoGen.py -->
+<!-- Last generation 2024-12-16 18:59:28: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
 ## Table of focntions
 1. [LED](#LED)
@@ -388,7 +388,7 @@ python3 autoGen.py
 #### get_current
 **Return**: void  
 **Parameters**:  
-- `int16_t &currentRigth`  
+- `int16_t &currentRight`  
 - ` int16_t &currentLeft`  
 
 **Description**: gives the current average since the last reading for each motor  
@@ -399,7 +399,7 @@ python3 autoGen.py
 #### get_speed
 **Return**: void  
 **Parameters**:  
-- `int16_t &speedRigth`  
+- `int16_t &speedRight`  
 - ` int16_t &speedLeft`  
 
 **Description**: gives the speed average since the last reading for each motor  
@@ -532,7 +532,7 @@ python3 autoGen.py
 **Return**: void  
 **Parameters**:  
 - `int16_t sizeWheelLeft`  
-- ` int16_t sizeWheelRigth`  
+- ` int16_t sizeWheelRight`  
 - ` int16_t spaceInterWheel`  
 
 **Description**: set odometry metric  
@@ -640,7 +640,7 @@ python3 autoGen.py
 **Return**: void  
 **Parameters**:  
 - `int16_t &sizeWheelLeft`  
-- ` int16_t &sizeWheelRigth`  
+- ` int16_t &sizeWheelRight`  
 - ` int16_t &spaceInterWheel`  
 
 **Description**: get odometry metric  
