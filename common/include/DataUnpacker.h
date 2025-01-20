@@ -22,8 +22,8 @@
         }
 
         uint16_t popUint16() {
-            uint16_t value = (uint16_t)(data[currentIndex]) |
-                            ((uint16_t)(data[currentIndex + 1]) << 8);
+            uint16_t value = (uint16_t)(data[currentIndex + 1]) |
+                            ((uint16_t)(data[currentIndex]) << 8);
             currentIndex += 2;
             return value;
         }
@@ -56,8 +56,8 @@
             if (currentIndex + 1 >= data.size()) {
                 throw std::out_of_range("No more data to pop");
             }
-            uint16_t value = static_cast<uint16_t>(data[currentIndex]) |
-                            (static_cast<uint16_t>(data[currentIndex + 1]) << 8);
+            uint16_t value = static_cast<uint16_t>(data[currentIndex + 1]) |
+                            (static_cast<uint16_t>(data[currentIndex]) << 8);
             currentIndex += 2;
             return value;
         }

@@ -160,7 +160,7 @@ def create_function_interface_content(rows):
     function_content.append("void Robot_interface::I2CDataSwitch(uint8_t* data, int size){\n")
     function_content.append("    uint8_t dataPack[64];\n")
     function_content.append("    DataPacker packer(dataPack, 64);\n")
-    function_content.append("    DataUnpacker unPacker(&data[1], size + 1);\n")
+    function_content.append("    DataUnpacker unPacker(&data[1], size - 1);\n")
     function_content.append("    switch (data[0]){\n")
 
     for row in rows:

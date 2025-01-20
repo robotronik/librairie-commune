@@ -2,12 +2,12 @@
 
 //***********************************************
 // Start auto generation CMD_ROBOT_FUNCTION_INTERFACE
-// Last generation 2024-12-16 18:59:28: python3 autoGen.py
+// Last generation 2025-01-20 22:55:07: python3 autoGen.py
 // DO NOT EDIT
 void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
     uint8_t dataPack[64];
     DataPacker packer(dataPack, 64);
-    DataUnpacker unPacker(&data[1], size + 1);
+    DataUnpacker unPacker(&data[1], size - 1);
     switch (data[0]){
         case 10:{
             bool status;
