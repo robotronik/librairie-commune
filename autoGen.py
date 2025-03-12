@@ -75,7 +75,7 @@ def generate_function_content(param,returnParameter,commandId):
     if returnParameter != "void":
         function_content.append( "    uint8_t data[2];\n")
         function_content.append( "    int length = 2;\n")
-        function_content.append( "    I2cReceiveData(52, data, length);\n")
+        function_content.append(f"    I2cReceiveData({commandId}, data, length);\n")
         function_content.append( "    DataUnpacker unpacker(data, length);\n")
         function_content.append(f"    return ({returnParameter})unpacker.popUint16();\n")
         return function_content

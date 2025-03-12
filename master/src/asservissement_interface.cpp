@@ -2,7 +2,7 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2024-12-16 18:59:28: python3 autoGen.py
+// Last generation 2025-03-12 18:46:05: python3 autoGen.py
 // DO NOT EDIT
 void asservissement_interface::set_led_1(bool status){
     DataPacker packer;
@@ -107,7 +107,7 @@ void asservissement_interface::set_angular_max_speed(int16_t max_speed, int16_t 
 int16_t asservissement_interface::get_braking_distance(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(50, data, length);
     DataUnpacker unpacker(data, length);
     return (int16_t)unpacker.popUint16();
 }
@@ -115,7 +115,7 @@ int16_t asservissement_interface::get_braking_distance(){
 int16_t asservissement_interface::get_command_buffer_size(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(51, data, length);
     DataUnpacker unpacker(data, length);
     return (int16_t)unpacker.popUint16();
 }
@@ -131,7 +131,7 @@ Direction asservissement_interface::get_direction_side(){
 Rotation asservissement_interface::get_rotation_side(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(53, data, length);
     DataUnpacker unpacker(data, length);
     return (Rotation)unpacker.popUint16();
 }
@@ -149,7 +149,7 @@ void asservissement_interface::get_current_target(int16_t &x, int16_t &y, int16_
 bool asservissement_interface::get_moving_is_done(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(55, data, length);
     DataUnpacker unpacker(data, length);
     return (bool)unpacker.popUint16();
 }
@@ -157,7 +157,7 @@ bool asservissement_interface::get_moving_is_done(){
 bool asservissement_interface::get_running_is_done(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(56, data, length);
     DataUnpacker unpacker(data, length);
     return (bool)unpacker.popUint16();
 }
@@ -165,7 +165,7 @@ bool asservissement_interface::get_running_is_done(){
 bool asservissement_interface::get_turning_is_done(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(57, data, length);
     DataUnpacker unpacker(data, length);
     return (bool)unpacker.popUint16();
 }
@@ -173,7 +173,7 @@ bool asservissement_interface::get_turning_is_done(){
 int16_t asservissement_interface::get_linear_error(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(58, data, length);
     DataUnpacker unpacker(data, length);
     return (int16_t)unpacker.popUint16();
 }
@@ -181,7 +181,7 @@ int16_t asservissement_interface::get_linear_error(){
 int16_t asservissement_interface::get_angular_error(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(59, data, length);
     DataUnpacker unpacker(data, length);
     return (int16_t)unpacker.popUint16();
 }
@@ -287,7 +287,7 @@ void asservissement_interface::set_odometry_metric(int16_t sizeWheelLeft, int16_
 int16_t asservissement_interface::get_max_torque(){
     uint8_t data[2];
     int length = 2;
-    I2cReceiveData(52, data, length);
+    I2cReceiveData(130, data, length);
     DataUnpacker unpacker(data, length);
     return (int16_t)unpacker.popUint16();
 }
