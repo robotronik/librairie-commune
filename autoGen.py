@@ -191,7 +191,7 @@ def create_function_interface_content(rows):
             for arg in params:
                 if arg['is_reference']:
                     function_content.append(f"            packer.addUint16((int16_t){arg['name']});\n")
-            if any(arg['is_reference'] for arg in params):
+            if any(arg['is_reference'] for arg in params) or returnParameter != "void":
                 function_content.append( "            setReponseBuffer(packer.getData(),packer.getSize());\n")
             function_content.append( "            break;\n")
             function_content.append( "        }\n")

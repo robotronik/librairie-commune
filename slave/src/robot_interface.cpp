@@ -1,8 +1,9 @@
 #include "robot_interface.h"
+#include "uart.h"
 
 //***********************************************
 // Start auto generation CMD_ROBOT_FUNCTION_INTERFACE
-// Last generation 2025-01-20 22:55:07: python3 autoGen.py
+// Last generation 2025-03-12 19:24:16: python3 autoGen.py
 // DO NOT EDIT
 void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
     uint8_t dataPack[64];
@@ -126,24 +127,28 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             int16_t retParam;
             retParam = get_braking_distance();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 51:{
             int16_t retParam;
             retParam = get_command_buffer_size();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 52:{
             Direction retParam;
             retParam = get_direction_side();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 53:{
             Rotation retParam;
             retParam = get_rotation_side();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 54:{
@@ -161,30 +166,35 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             bool retParam;
             retParam = get_moving_is_done();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 56:{
             bool retParam;
             retParam = get_running_is_done();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 57:{
             bool retParam;
             retParam = get_turning_is_done();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 58:{
             int16_t retParam;
             retParam = get_linear_error();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 59:{
             int16_t retParam;
             retParam = get_angular_error();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 60:{
@@ -309,6 +319,7 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             int16_t retParam;
             retParam = get_max_torque();
             packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
             break;
         }
         case 131:{
