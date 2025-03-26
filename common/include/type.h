@@ -9,6 +9,7 @@ enum class Rotation {
 
 enum class Direction {
     NONE = 0,
-    FORWARD = 1,
-    BACKWARD = 2
+    SHORTEST = 1,
+    FORWARD = 2,
+    BACKWARD = 3
 };
