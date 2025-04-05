@@ -69,7 +69,7 @@ def create_header_content(rows):
     generated_content.extend(private_methods_overloading)
     return generated_content
 
-def generate_function_content(param,returnParameter,commandId):
+def generate_function_content(param,returnParameter,commandId,command_name):
     function_content = []
 
     if returnParameter != "void":
@@ -77,13 +77,16 @@ def generate_function_content(param,returnParameter,commandId):
         function_content.append( "    int length = 2;\n")
         function_content.append(f"    I2cReceiveData({commandId}, data, length);\n")
         function_content.append( "    DataUnpacker unpacker(data, length);\n")
-        function_content.append(f"    return ({returnParameter})unpacker.popUint16();\n")
+        function_content.append(f"    {returnParameter} retPara = ({returnParameter})unpacker.popUint16();\n")
+        function_content.append(f"    LOG_ASSERV_GET_INFO(\"{command_name} : \",(int16_t)retPara);\n")
+        function_content.append(f"    return retPara;\n")
         return function_content
 
     # empty focntion
     if not param:
         function_content.append("    uint8_t* data = nullptr;\n")
         function_content.append("    int length = 0;\n")
+        function_content.append(f"    LOG_ASSERV_SET_INFO(\"{command_name}\");\n")
         function_content.append("    I2cSendData(" + commandId + ", data, length);\n")
         return function_content
 
@@ -109,6 +112,13 @@ def generate_function_content(param,returnParameter,commandId):
             param_name = ref_param.split(" ")[-1].replace("&", "").strip()
             function_content.append(f"    {param_name} = ({param_type})unpacker.popUint16();\n")
 
+        function_content.append(f"    LOG_ASSERV_GET_INFO(\"{command_name} : \"")
+        for ref_param in reference_params:
+            param_type = ref_param.split(" ")[0].replace("&", "").strip()
+            param_name = ref_param.split(" ")[-1].replace("&", "").strip()
+            function_content.append(f",\"{param_name} \",(int16_t){param_name},\", \"")
+        function_content.append(f");\n")
+
     elif len(value_params) > 0:
         function_content.append("    DataPacker packer;\n")
         for val_param in value_params:
@@ -117,6 +127,13 @@ def generate_function_content(param,returnParameter,commandId):
             function_content.append(f"    packer.addUint16((int16_t){param_name});\n")
 
         function_content.append("    I2cSendData(" + commandId + ", packer.getData(), packer.getSize());\n")
+
+        function_content.append(f"    LOG_ASSERV_SET_INFO(\"{command_name} : \"")
+        for val_param in value_params:
+            param_type = val_param.split(" ")[0]
+            param_name = val_param.split(" ")[-1]
+            function_content.append(f",\"{param_name} \",(int16_t){param_name},\", \"")
+        function_content.append(f");\n")
 
     return function_content
 
@@ -137,7 +154,7 @@ def create_fonction_content(rows):
 
         if command_name and id:
             fonction.append(f"{returnParameter} asservissement_interface::{command_name}({output_params})" + "{\n")
-            fonction.extend(generate_function_content(output_params,returnParameter,row['commandId']))
+            fonction.extend(generate_function_content(output_params,returnParameter,row['commandId'],command_name))
             fonction.append("}\n\n")
     return fonction
 
