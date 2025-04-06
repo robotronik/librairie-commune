@@ -3,8 +3,20 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2025-04-05 15:09:34: python3 autoGen.py
+// Last generation 2025-04-06 23:08:15: python3 autoGen.py
 // DO NOT EDIT
+void asservissement_interface::get_version(uint16_t &part1, uint16_t &part2, uint16_t &part3, uint16_t &part4){
+    uint8_t data[8];
+    int length = 8;
+    I2cReceiveData(1, data, length);
+    DataUnpacker unpacker(data, length);
+    part1 = (uint16_t)unpacker.popUint16();
+    part2 = (uint16_t)unpacker.popUint16();
+    part3 = (uint16_t)unpacker.popUint16();
+    part4 = (uint16_t)unpacker.popUint16();
+    LOG_ASSERV_GET_INFO("get_version : ","part1 ",(int16_t)part1,", ","part2 ",(int16_t)part2,", ","part3 ",(int16_t)part3,", ","part4 ",(int16_t)part4,", ");
+}
+
 void asservissement_interface::set_led_1(bool status){
     DataPacker packer;
     packer.addUint16((int16_t)status);
@@ -474,6 +486,18 @@ void asservissement_interface::set_all_parameter(){
 // End auto generation CMD_FONCTION
 //***********************************************
 
-void asservissement_interface::get_current_target(){
-
+bool asservissement_interface::checkVersion(){
+    uint8_t part1;
+    uint8_t part2;
+    uint8_t part3;
+    uint8_t part4;
+    get_version(part1, part2, part3, part4);
+    if( part1 == GIT_COMMIT_SHA_PART1 &&
+        part2 == GIT_COMMIT_SHA_PART2 &&
+        part3 == GIT_COMMIT_SHA_PART3 &&
+        part4 == GIT_COMMIT_SHA_PART4)
+    {
+        return true;
+    }
+    return false;
 }

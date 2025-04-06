@@ -101,18 +101,34 @@ python3 autoGen.py
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2024-12-16 18:59:28: python3 autoGen.py -->
+<!-- Last generation 2025-04-06 23:08:15: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
 ## Table of focntions
-1. [LED](#LED)
-2. [COORDINATE](#COORDINATE)
-3. [COMMAND](#COMMAND)
-4. [STATUS](#STATUS)
-5. [MOTOR](#MOTOR)
-6. [PARAMETER](#PARAMETER)
-7. [CALIBRATION](#CALIBRATION)
-8. [OPTIMIZATION](#OPTIMIZATION)
-## 1. LED
+1. [GLOBAL](#GLOBAL)
+2. [LED](#LED)
+3. [COORDINATE](#COORDINATE)
+4. [COMMAND](#COMMAND)
+5. [STATUS](#STATUS)
+6. [MOTOR](#MOTOR)
+7. [PARAMETER](#PARAMETER)
+8. [CALIBRATION](#CALIBRATION)
+9. [OPTIMIZATION](#OPTIMIZATION)
+## 1. GLOBAL
+
+#### get_version
+**Return**: void  
+**Parameters**:  
+- `uint16_t &part1`  
+- ` uint16_t &part2`  
+- ` uint16_t &part3`  
+- ` uint16_t &part4`  
+
+**Description**: get version of the librairie-commune  
+
+
+---
+
+## 2. LED
 
 #### set_led_1
 **Return**: void  
@@ -136,7 +152,7 @@ python3 autoGen.py
 
 ---
 
-## 2. COORDINATE
+## 3. COORDINATE
 
 #### get_coordinates
 **Return**: void  
@@ -162,7 +178,7 @@ python3 autoGen.py
 
 ---
 
-## 3. COMMAND
+## 4. COMMAND
 
 #### stop
 **Return**: void  
@@ -269,7 +285,7 @@ python3 autoGen.py
 
 ---
 
-## 4. STATUS
+## 5. STATUS
 
 #### get_braking_distance
 **Return**:  
@@ -407,7 +423,7 @@ python3 autoGen.py
 
 ---
 
-## 5. MOTOR
+## 6. MOTOR
 
 #### set_motor_state
 **Return**: void  
@@ -431,7 +447,7 @@ python3 autoGen.py
 
 ---
 
-## 6. PARAMETER
+## 7. PARAMETER
 
 #### set_max_torque
 **Return**: void  
@@ -649,7 +665,7 @@ python3 autoGen.py
 
 ---
 
-## 7. CALIBRATION
+## 8. CALIBRATION
 
 #### start_calibration
 **Return**: void  
@@ -675,7 +691,7 @@ python3 autoGen.py
 
 ---
 
-## 8. OPTIMIZATION
+## 9. OPTIMIZATION
 
 #### get_all_status
 **Return**: void  

@@ -12,9 +12,10 @@ public:
 
 //***********************************************
 // Start auto generation CMD_ROBOT_INTERFACE
-// Last generation 2024-12-16 18:59:28: python3 autoGen.py
+// Last generation 2025-04-06 23:08:15: python3 autoGen.py
 // DO NOT EDIT
 private:
+    virtual void get_version(uint16_t &part1, uint16_t &part2, uint16_t &part3, uint16_t &part4) = 0;
     virtual void set_led_1(bool status) = 0;
     virtual void set_led_2(bool status) = 0;
     virtual void get_coordinates(int16_t &x, int16_t &y, int16_t &theta) = 0;
