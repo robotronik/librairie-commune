@@ -487,10 +487,10 @@ void asservissement_interface::set_all_parameter(){
 //***********************************************
 
 bool asservissement_interface::checkVersion(){
-    uint8_t part1;
-    uint8_t part2;
-    uint8_t part3;
-    uint8_t part4;
+    uint16_t part1;
+    uint16_t part2;
+    uint16_t part3;
+    uint16_t part4;
     get_version(part1, part2, part3, part4);
     if( part1 == GIT_COMMIT_SHA_PART1 &&
         part2 == GIT_COMMIT_SHA_PART2 &&
