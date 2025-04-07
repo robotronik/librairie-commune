@@ -732,6 +732,17 @@ python3 autoGen.py
 <!-- End auto generation CMD_DOC -->
 <!--*********************************************** -->
 
+
+---
+
+#### interface_version_matches
+**Return**: bool  
+**Parameters**: void  
+**Description**: return true if the compiled interface of the stm32 and the main program is identical (same commit)  
+
+
+---
+
 ## Notes
 - All parameters with `&` are references and will be modified to store results or inputs.
 - Ensure proper initialization and configuration of the robot before using these commands.

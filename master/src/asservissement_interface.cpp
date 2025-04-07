@@ -486,7 +486,7 @@ void asservissement_interface::set_all_parameter(){
 // End auto generation CMD_FONCTION
 //***********************************************
 
-bool asservissement_interface::checkVersion(){
+bool asservissement_interface::interface_version_matches(){
     uint16_t part1;
     uint16_t part2;
     uint16_t part3;

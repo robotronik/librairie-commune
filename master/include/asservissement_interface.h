@@ -76,7 +76,7 @@ private:
 //***********************************************
 
 private:
-    bool checkVersion();
+    bool interface_version_matches();
     virtual void I2cSendData (uint8_t command, uint8_t* data, int length) = 0;
     virtual void I2cReceiveData (uint8_t command, uint8_t* data, int length) = 0;
 
