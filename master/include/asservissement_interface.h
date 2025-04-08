@@ -11,7 +11,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_HEADER
-// Last generation 2025-04-06 23:08:15: python3 autoGen.py
+// Last generation 2025-04-08 18:43:32: python3 autoGen.py
 // DO NOT EDIT
 public:
     void get_version(uint16_t &part1, uint16_t &part2, uint16_t &part3, uint16_t &part4);
@@ -23,7 +23,7 @@ public:
     void pause();
     void resume();
     void go_to_point(int16_t x,int16_t y,Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD);
-    void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond);
+    void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst = Rotation::SHORTEST, Direction direction = Direction::FORWARD, Rotation rotationSecond = Rotation::SHORTEST);
     void consigne_angulaire(int16_t angle, Rotation rotation = Rotation::SHORTEST);
     void consigne_angulaire(int16_t x, int16_t y, Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD);
     void set_linear_max_speed(int16_t max_speed, int16_t max_acceleration = 0, int16_t max_deceleration = 0);

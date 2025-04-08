@@ -12,7 +12,7 @@ public:
 
 //***********************************************
 // Start auto generation CMD_ROBOT_INTERFACE
-// Last generation 2025-04-06 23:08:15: python3 autoGen.py
+// Last generation 2025-04-08 18:43:32: python3 autoGen.py
 // DO NOT EDIT
 private:
     virtual void get_version(uint16_t &part1, uint16_t &part2, uint16_t &part3, uint16_t &part4) = 0;
@@ -24,7 +24,7 @@ private:
     virtual void pause() = 0;
     virtual void resume() = 0;
     virtual void go_to_point(int16_t x,int16_t y,Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD) = 0;
-    virtual void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst, Direction direction, Rotation rotationSecond) = 0;
+    virtual void go_to_point(int16_t x,int16_t y,int16_t theta, Rotation rotationFirst = Rotation::SHORTEST, Direction direction = Direction::FORWARD, Rotation rotationSecond = Rotation::SHORTEST) = 0;
     virtual void consigne_angulaire(int16_t angle, Rotation rotation = Rotation::SHORTEST) = 0;
     virtual void consigne_angulaire(int16_t x, int16_t y, Rotation rotation = Rotation::SHORTEST, Direction direction = Direction::FORWARD) = 0;
     virtual void set_linear_max_speed(int16_t max_speed, int16_t max_acceleration = 0, int16_t max_deceleration = 0) = 0;

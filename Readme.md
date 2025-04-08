@@ -101,7 +101,7 @@ python3 autoGen.py
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2025-04-06 23:08:15: python3 autoGen.py -->
+<!-- Last generation 2025-04-08 18:43:32: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
 ## Table of focntions
 1. [GLOBAL](#GLOBAL)
@@ -226,9 +226,9 @@ python3 autoGen.py
 - `int16_t x`  
 - `int16_t y`  
 - `int16_t theta`  
-- ` Rotation rotationFirst`  
-- ` Direction direction`  
-- ` Rotation rotationSecond`  
+- ` Rotation rotationFirst = Rotation::SHORTEST`  
+- ` Direction direction = Direction::FORWARD`  
+- ` Rotation rotationSecond = Rotation::SHORTEST`  
 
 **Description**: the robot go to point and turn at the final position  
 
