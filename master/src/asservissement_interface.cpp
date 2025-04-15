@@ -486,17 +486,30 @@ void asservissement_interface::set_all_parameter(){
 // End auto generation CMD_FONCTION
 //***********************************************
 
+uint32_t asservissement_interface::get_version_dist(){
+    uint16_t part1;
+    uint16_t part2;
+    uint16_t part3;
+    uint16_t part4;
+    get_version(part1, part2, part3, part4);
+    return (part1<<20) + (part2<<12) + (part3<<4) + (part4);
+}
+
+uint32_t asservissement_interface::get_version_local(){
+    uint16_t part1 = GIT_COMMIT_SHA_PART1;
+    uint16_t part2 = GIT_COMMIT_SHA_PART2;
+    uint16_t part3 = GIT_COMMIT_SHA_PART3;
+    uint16_t part4 = GIT_COMMIT_SHA_PART4;
+    return (part1<<20) + (part2<<12) + (part3<<4) + (part4);
+}
+
 bool asservissement_interface::interface_version_matches(){
     uint16_t part1;
     uint16_t part2;
     uint16_t part3;
     uint16_t part4;
     get_version(part1, part2, part3, part4);
-    if( part1 == GIT_COMMIT_SHA_PART1 &&
-        part2 == GIT_COMMIT_SHA_PART2 &&
-        part3 == GIT_COMMIT_SHA_PART3 &&
-        part4 == GIT_COMMIT_SHA_PART4)
-    {
+    if( get_version_dist() == get_version_local()){
         return true;
     }
     return false;

@@ -74,9 +74,12 @@ private:
     //Overloding function
 // End auto generation CMD_HEADER
 //***********************************************
+public:
+    bool interface_version_matches();
+    uint32_t get_version_dist();
+    uint32_t get_version_local();
 
 private:
-    bool interface_version_matches();
     virtual void I2cSendData (uint8_t command, uint8_t* data, int length) = 0;
     virtual void I2cReceiveData (uint8_t command, uint8_t* data, int length) = 0;
 
