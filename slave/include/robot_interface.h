@@ -3,6 +3,8 @@
 #include "DataPacker.h"
 #include "DataUnpacker.h"
 #include "type.h"
+#include "Motor.h"
+#include "led.h"
 
 class Robot_interface
 {
