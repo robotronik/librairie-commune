@@ -3,7 +3,7 @@
 
 //***********************************************
 // Start auto generation CMD_ROBOT_FUNCTION_INTERFACE
-// Last generation 2025-04-06 23:08:15: python3 autoGen.py
+// Last generation 2025-05-22 22:02:28: python3 autoGen.py
 // DO NOT EDIT
 void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
     uint8_t dataPack[64];
@@ -21,6 +21,20 @@ void Robot_interface::I2CDataSwitch(uint8_t* data, int size){
             packer.addUint16((int16_t)part3);
             packer.addUint16((int16_t)part4);
             setReponseBuffer(packer.getData(),packer.getSize());
+            break;
+        }
+        case 2:{
+            uint16_t retParam;
+            retParam = get_log_size();
+            packer.addUint16((int16_t)retParam);
+            setReponseBuffer(packer.getData(),packer.getSize());
+            break;
+        }
+        case 3:{
+            uint8_t* dataToSend;
+            int length;
+            get_log(&dataToSend,length);
+            setReponseBuffer(dataToSend,length);
             break;
         }
         case 10:{

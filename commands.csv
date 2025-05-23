@@ -1,5 +1,7 @@
 commandId,name,type,category,return,paramater,description,usage,
 1,get_version,public,GLOBAL,void,"uint16_t &part1, uint16_t &part2, uint16_t &part3, uint16_t &part4",get version of the librairie-commune,,
+2,get_log_size,public,GLOBAL,uint16_t,,get log size. This command freeze the buffer for next commande if the size is different of 0,,
+3,get_log,public,GLOBAL,void,&uint16_t,get log,,
 10,set_led_1,public,LED,void,bool status,set status led 1,debug i2c interface,
 11,set_led_2,public,LED,void,bool status,set status led 2,debug i2c interface,
 20,get_coordinates,public,COORDINATE,void,"int16_t &x, int16_t &y, int16_t &theta",get coordinates (in mm and degres),,

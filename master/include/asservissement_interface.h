@@ -11,10 +11,12 @@ public:
 
 //***********************************************
 // Start auto generation CMD_HEADER
-// Last generation 2025-04-08 18:43:32: python3 autoGen.py
+// Last generation 2025-05-22 22:04:06: python3 autoGen.py
 // DO NOT EDIT
 public:
     void get_version(uint16_t &part1, uint16_t &part2, uint16_t &part3, uint16_t &part4);
+    uint16_t get_log_size();
+    void get_log(char* data, int length);
     void set_led_1(bool status);
     void set_led_2(bool status);
     void get_coordinates(int16_t &x, int16_t &y, int16_t &theta);
@@ -78,6 +80,7 @@ public:
     bool interface_version_matches();
     uint32_t get_version_dist();
     uint32_t get_version_local();
+    void logAsserv();
 
 private:
     virtual void I2cSendData (uint8_t command, uint8_t* data, int length) = 0;

@@ -3,7 +3,7 @@
 
 //***********************************************
 // Start auto generation CMD_FONCTION
-// Last generation 2025-04-06 23:08:15: python3 autoGen.py
+// Last generation 2025-05-22 22:04:06: python3 autoGen.py
 // DO NOT EDIT
 void asservissement_interface::get_version(uint16_t &part1, uint16_t &part2, uint16_t &part3, uint16_t &part4){
     uint8_t data[8];
@@ -15,6 +15,20 @@ void asservissement_interface::get_version(uint16_t &part1, uint16_t &part2, uin
     part3 = (uint16_t)unpacker.popUint16();
     part4 = (uint16_t)unpacker.popUint16();
     LOG_ASSERV_GET_INFO("get_version : ","part1 ",(int16_t)part1,", ","part2 ",(int16_t)part2,", ","part3 ",(int16_t)part3,", ","part4 ",(int16_t)part4,", ");
+}
+
+uint16_t asservissement_interface::get_log_size(){
+    uint8_t data[2];
+    int length = 2;
+    I2cReceiveData(2, data, length);
+    DataUnpacker unpacker(data, length);
+    uint16_t retPara = (uint16_t)unpacker.popUint16();
+    LOG_ASSERV_GET_INFO("get_log_size : ",(int16_t)retPara);
+    return retPara;
+}
+
+void asservissement_interface::get_log(char* data, int length){
+    I2cReceiveData(3, (uint8_t*)data, length);
 }
 
 void asservissement_interface::set_led_1(bool status){
@@ -513,4 +527,17 @@ bool asservissement_interface::interface_version_matches(){
         return true;
     }
     return false;
+}
+
+void asservissement_interface::logAsserv(){
+    int size = get_log_size();
+
+    if(size == 0)
+        return;
+
+    char* temp = (char*)malloc(sizeof(char) * size+1);
+    get_log(temp,size);
+    temp[size] = '\0';
+    LOG_ASSERV_SET_INFO("LOG : \n<<<",temp,">>>");
+    free(temp);
 }

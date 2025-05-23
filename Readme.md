@@ -101,7 +101,7 @@ python3 autoGen.py
 
 <!-- *********************************************** -->
 <!-- Start auto generation CMD_DOC -->
-<!-- Last generation 2025-04-08 18:43:32: python3 autoGen.py -->
+<!-- Last generation 2025-05-22 22:04:06: python3 autoGen.py -->
 <!-- DO NOT EDIT -->
 ## Table of focntions
 1. [GLOBAL](#GLOBAL)
@@ -124,6 +124,26 @@ python3 autoGen.py
 - ` uint16_t &part4`  
 
 **Description**: get version of the librairie-commune  
+
+
+---
+
+#### get_log_size
+**Return**:  
+- `uint16_t`  
+
+**Parameters**: void  
+**Description**: get log size. This command freeze the buffer for next commande if the size is different of 0  
+
+
+---
+
+#### get_log
+**Return**: void  
+**Parameters**:  
+- `&uint16_t`  
+
+**Description**: get log  
 
 
 ---
